@@ -1,0 +1,18 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.navbar-fixed-top {
+  background-color: #303030;
+  border-color: #303030;
+}
+
+.navbar-header img {
+  margin-top: 5px;
+  height: 35px;
+  width: auto;
+}
