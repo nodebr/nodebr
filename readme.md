@@ -42,11 +42,11 @@ fork do projeto e mandar uma pull request.
 Lista de e-mail: https://groups.google.com/forum/?hl=pt#!forum/nodebr<br />
 NodeBR no IRC: https://webchat.freenode.net/?channels=#nodebr<br />
 Site da comunidade: http://nodebr.org<br />
-Site do Meetup de São Paulo: http://www.meetup.com/Node-js-Sao-Paulo<br />
+Site do Meetup de São Paulo: http://www.meetup.com/Node-js-Sao-Paulo
 
 ### Licença MIT
 
-Copyright (c) <2014> <NodeBR>
+Copyright (c) 2014 NodeBR
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
