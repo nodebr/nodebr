@@ -22,8 +22,12 @@
     "supertest": "^0.13.0"
   },
   "dependencies": {
+    "dustjs-helpers": "^1.2.0",
+    "dustjs-linkedin": "^2.4.0",
     "hapi": "^6.4.0",
+    "mongodb": "^1.4.8",
     "requi": "^0.2.2",
+    "winston": "^0.7.3",
     "xconf": "0.0.2"
   }
 }

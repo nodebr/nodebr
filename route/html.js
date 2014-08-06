@@ -4,7 +4,7 @@ var server  = require(__dirname + '/../lib/http');
 server.route({
   method: 'GET',
   path: '/',
-  handler: {
-    file: 'view/main.html'
+  handler: function(req, res){
+    res.view('main');
   }
 });
