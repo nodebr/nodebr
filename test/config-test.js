@@ -2,9 +2,9 @@
 var config = require(__dirname + '/../lib/config');
 var assert = require('assert');
 
-describe('Lib de configuração', function(){
+describe('Biblioteca de configuração', function(){
 
-  it('A lib de configuração deve ser uma instância do XConf', function(){
+  it('A biblioteca de configuração deve ser uma instância do XConf', function(){
     assert.equal(typeof config.get, 'function');
     assert.equal(typeof config.set, 'function');
   });

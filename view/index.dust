@@ -1,0 +1,10 @@
+{>"layout/main"/}
+{<body}
+<div class="container">
+  <div class="starter-template">
+    <h1>Unidos, evoluídos. Somos a NodeBR.</h1>
+    <p class="lead">Pequenas atitudes, quando unidas, são capazes de escrever a história.<br> Você está no lugar certo para que isso aconteça, ajude-nos no GitHub.</p>
+    <iframe src="//ghbtns.com/github-btn.html?user=nodebr&repo=nodebr&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+  </div>
+</div>
+{/body}

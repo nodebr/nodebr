@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,9 +11,11 @@
     <!-- Bootstrap core CSS -->
     <link href="//cdn.jsdelivr.net/bootstrap/3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/public/css/style.css" rel="stylesheet">
+    {+head}
+    {/head}
   </head>
-
   <body>
+    {+header}
     <a href="https://github.com/nodebr/nodebr"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -23,16 +24,13 @@
         </div>
       </div>
     </div>
-
+    {/header}
+    {+body}
     <div class="container">
-
-      <div class="starter-template">
-        <h1>Unidos, evoluídos. Somos a NodeBR.</h1>
-        <p class="lead">Pequenas atitudes, quando unidas, são capazes de escrever a história.<br> Você está no lugar certo para que isso aconteça, ajude-nos no GitHub.</p>
-        <iframe src="//ghbtns.com/github-btn.html?user=nodebr&repo=nodebr&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
-      </div>
-
     </div>
+    {/body}
     <script src="//cdn.jsdelivr.net/g/jquery@2.1,bootstrap@3.1"></script>
+    {+footer}
+    {/footer}
   </body>
 </html>

@@ -5,6 +5,6 @@ server.route({
   method: 'GET',
   path: '/',
   handler: function(req, res){
-    res.view('main');
+    res.view('index');
   }
 });
