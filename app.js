@@ -2,15 +2,21 @@ var requi = require('requi');
 var httpServer = require(__dirname + '/lib/http');
 var log = require(__dirname + '/lib/log');
 var config = require(__dirname + '/lib/config');
+var db = require(__dirname + '/lib/db');
 
 // Carregando as rotas da aplicação
 requi(__dirname + '/route');
 
-// Inicializando o servidor http
-httpServer.start(function(err){
-  if(err)
-    throw err;
+// Esperamos o banco de dados conectar
+db.on('ready', function(){
+  log.info('Baco de dados conectado.');
 
-  log.info('Servidor iniciado na porta ' + httpServer.info.port + ' no modo ' +
-    config.get('mode'));
+  // Inicializando o servidor http
+  httpServer.start(function(err){
+    if(err)
+      throw err;
+
+    log.info('Servidor iniciado na porta ' + httpServer.info.port +
+      ' no modo ' + config.get('mode'));
+  });
 });
