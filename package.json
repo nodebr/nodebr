@@ -24,7 +24,6 @@
         "coveralls": "^2.11.1"
     },
     "dependencies": {
-        "coveralls": "^2.11.1",
         "dustjs-helpers": "^1.2.0",
         "dustjs-linkedin": "^2.4.0",
         "hapi": "^6.4.0",
