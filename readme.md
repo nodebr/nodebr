@@ -1,4 +1,8 @@
-# NodeBR [![Build Status](https://secure.travis-ci.org/nodebr/nodebr.png)](https://travis-ci.org/nodebr/nodebr) [![Dependencies Status](https://david-dm.org/nodebr/nodebr.png)](https://david-dm.org/nodebr/nodebr) [![DevDependencies Status](https://david-dm.org/nodebr/nodebr/dev-status.png)](https://david-dm.org/nodebr/nodebr)
+# NodeBR
+[![Coverage Status](https://img.shields.io/coveralls/nodebr/nodebr.svg)](https://coveralls.io/r/nodebr/nodebr)
+[![Build Status](https://secure.travis-ci.org/nodebr/nodebr.png)](https://travis-ci.org/nodebr/nodebr)
+[![Dependencies Status](https://david-dm.org/nodebr/nodebr.png)](https://david-dm.org/nodebr/nodebr)
+[![DevDependencies Status](https://david-dm.org/nodebr/nodebr/dev-status.png)](https://david-dm.org/nodebr/nodebr)
 
 A NodeBR é uma comunidade fundada por pessoas com interesse em aprender
 mais sobre Node.js assim como ajudar outras pessoas que possuem dúvidas
