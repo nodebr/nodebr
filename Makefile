@@ -1,9 +1,12 @@
 REPORTER=spec
+ISTANBUL=./node_modules/.bin/istanbul
+MOCHA=./node_modules/.bin/_mocha
 
-test: hint mocha
+test: hint mocha 
 
 mocha:
-	@./node_modules/.bin/mocha \
+	$(ISTANBUL) cover $(MOCHA) \
+		--report lcovonly -- \
 		--reporter $(REPORTER) \
 		--bail \
 		test/*.js
