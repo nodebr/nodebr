@@ -6,3 +6,5 @@ notifications:
   irc: 'chat.freenode.net#nodebr'
 services:
   - mongodb
+before_script:
+  - sleep 15
