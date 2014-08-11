@@ -1,3 +1,6 @@
+// Exports uma função que ajuda a dropar
+// o banco de dados para os testes
+
 require(__dirname + '/loader').models();
 var mongoose = require('mongoose');
 

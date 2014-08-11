@@ -10,7 +10,6 @@ loader.models();
 
 describe('Rota /api/v1/news', function(){
   // Limpando o banco de dados antes e depois dos testes
-  console.log('AQUI', dropper);
   before(dropper);
   after(dropper);
 
