@@ -2,22 +2,17 @@
 var assert = require('assert');
 var server = require(__dirname + '/../../lib/http');
 var loader = require(__dirname + '/../mock/loader');
-var mongoose = require('mongoose');
+var dropper = require(__dirname + '/../mock/dropper');
 var request = require('supertest');
 
 loader.routes();
 loader.models();
 
-
 describe('Rota /api/v1/news', function(){
   // Limpando o banco de dados antes e depois dos testes
-  before(function(cb){
-    mongoose.connection.db.dropDatabase(cb);
-  });
-
-  after(function(cb){
-    mongoose.connection.db.dropDatabase(cb);
-  });
+  console.log('AQUI', dropper);
+  before(dropper);
+  after(dropper);
 
   it('POST de notícias deve aceitar um documento bem formatado', function(cb){
     var data = {

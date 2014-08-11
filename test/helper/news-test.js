@@ -2,19 +2,15 @@
 var assert = require('assert');
 var dust = require(__dirname + '/../../lib/hapi-dust');
 require(__dirname + '/../mock/loader').models();
+var dropper = require(__dirname + '/../mock/dropper');
 var mongoose = require('mongoose');
 var News = mongoose.model('news');
 
 describe('Teste do helper @news', function(){
 
   // Limpando o banco de dados antes e depois das operações
-  before(function(cb){
-    mongoose.connection.db.dropDatabase(cb);
-  });
-
-  after(function(cb){
-    mongoose.connection.db.dropDatabase(cb);
-  });
+  before(dropper);
+  after(dropper);
 
   // Criando uma notítica para ser testada
   before(function(cb){
