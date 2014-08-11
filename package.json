@@ -1,35 +1,37 @@
 {
-    "name": "nodebr",
-    "version": "0.0.0",
-    "description": "Site da comunidade NodeBR",
-    "main": "app.js",
-    "scripts": {
-        "test": "make test-coveralls"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nodebr/nodebr.git"
-    },
-    "author": "Alan Hoffmeister <alanhoffmeister@gmail.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/nodebr/nodebr/issues"
-    },
-    "homepage": "https://github.com/nodebr/nodebr",
-    "devDependencies": {
-        "jshint": "^2.5.2",
-        "mocha": "^1.21.3",
-        "istanbul": "^0.3.0",
-        "supertest": "^0.3.0",
-        "coveralls": "^2.11.1"
-    },
-    "dependencies": {
-        "dustjs-helpers": "^1.2.0",
-        "dustjs-linkedin": "^2.4.0",
-        "hapi": "^6.4.0",
-        "mongodb": "^1.4.8",
-        "requi": "^0.2.2",
-        "winston": "^0.7.3",
-        "xconf": "0.0.2"
-    }
+  "name": "nodebr",
+  "version": "0.0.0",
+  "description": "Site da comunidade NodeBR",
+  "main": "app.js",
+  "scripts": {
+    "test": "make test-coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodebr/nodebr.git"
+  },
+  "author": "Alan Hoffmeister <alanhoffmeister@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodebr/nodebr/issues"
+  },
+  "homepage": "https://github.com/nodebr/nodebr",
+  "devDependencies": {
+    "jshint": "^2.5.2",
+    "mocha": "^1.21.3",
+    "istanbul": "^0.3.0",
+    "supertest": "^0.3.0",
+    "coveralls": "^2.11.1"
+  },
+  "dependencies": {
+    "dustjs-helpers": "^1.2.0",
+    "dustjs-linkedin": "^2.4.0",
+    "hapi": "^6.4.0",
+    "joi": "^4.6.2",
+    "mongoose": "^3.8.14",
+    "mongoose-paginate": "^3.1.0",
+    "requi": "^0.2.2",
+    "winston": "^0.7.3",
+    "xconf": "0.0.2"
+  }
 }
