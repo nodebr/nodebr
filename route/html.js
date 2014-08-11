@@ -4,7 +4,15 @@ var server  = require(__dirname + '/../lib/http');
 server.route({
   method: 'GET',
   path: '/',
-  handler: function(req, res){
-    res.view('index');
+  handler: {
+    view: 'index'
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/noticias',
+  handler: {
+    view: 'news'
   }
 });
