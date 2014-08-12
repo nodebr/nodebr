@@ -15,9 +15,12 @@ mocha:
 
 
 hint:
-	@./node_modules/.bin/jshint lib route config test
+	@./node_modules/.bin/jshint lib route config test tool model
 
 coveralls:
 	cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+
+populate:
+	node ./tool/populate
 
 .PHONY: test test-watch
