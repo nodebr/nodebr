@@ -48,6 +48,23 @@ NodeBR no IRC: https://webchat.freenode.net/?channels=#nodebr<br />
 Site da comunidade: http://nodebr.org<br />
 Site do Meetup de São Paulo: http://www.meetup.com/Node-js-Sao-Paulo
 
+### Rodando o projeto
+
+Inicialize o mongodb
+```bash
+$ mongod --dbpath ./data
+```
+
+O servidor
+```bash
+$ npm start
+```
+
+E acesse
+```
+http://localhost:8080
+```
+
 ### Licença MIT
 
 Copyright (c) 2014 NodeBR
