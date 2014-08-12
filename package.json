@@ -18,11 +18,12 @@
   },
   "homepage": "https://github.com/nodebr/nodebr",
   "devDependencies": {
+    "Faker": "^0.7.2",
+    "coveralls": "^2.11.1",
+    "istanbul": "^0.3.0",
     "jshint": "^2.5.2",
     "mocha": "^1.21.3",
-    "istanbul": "^0.3.0",
-    "supertest": "^0.3.0",
-    "coveralls": "^2.11.1"
+    "supertest": "^0.3.0"
   },
   "dependencies": {
     "dustjs-helpers": "^1.2.0",
