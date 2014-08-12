@@ -4,11 +4,14 @@ var log = require(__dirname + '/lib/log');
 var config = require(__dirname + '/lib/config');
 var db = require(__dirname + '/lib/db');
 
+// Carregando os models
+requi(__dirname + '/model');
+
 // Carregando as rotas da aplicação
 requi(__dirname + '/route');
 
 // Esperamos o banco de dados conectar
-db.on('ready', function(){
+db.connection.on('connected', function(){
   log.info('Baco de dados conectado.');
 
   // Inicializando o servidor http
