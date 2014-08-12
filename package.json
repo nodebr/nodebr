@@ -4,6 +4,7 @@
   "description": "Site da comunidade NodeBR",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "make test-coveralls"
   },
   "repository": {
