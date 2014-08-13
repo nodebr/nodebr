@@ -46,3 +46,24 @@ body {
   font-size: 14px;
   color: #cccccc;
 }
+
+span.score {
+  margin-top: 10px;
+  margin-right: 10px;
+  min-width: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+article a h3{
+  color: #303030;
+}
+
+a {
+  color: #80bd01;
+}
+
+a:hover{
+  text-decoration: none;
+  color: rgba(139, 190, 0, 0.6)
+}

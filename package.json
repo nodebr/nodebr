@@ -33,6 +33,7 @@
     "mongoose": "^3.8.14",
     "mongoose-paginate": "^3.1.0",
     "requi": "^0.2.2",
+    "slug": "^0.5.0",
     "winston": "^0.7.3",
     "xconf": "0.0.2"
   }
