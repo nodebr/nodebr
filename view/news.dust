@@ -8,13 +8,13 @@
       <span class="pull-left score">
         <a href="#">
           <h4>
-            <span class="glyphicon glyphicon-chevron-up">
+            <span class="glyphicon glyphicon-chevron-up"></span>
           </h4>
         </a>
         <h4>{karma}</h4>
         <a href="#">
           <h4>
-            <span class="glyphicon glyphicon-chevron-down">
+            <span class="glyphicon glyphicon-chevron-down"></span>
           </h4>
         </a>
       </span>

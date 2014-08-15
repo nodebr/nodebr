@@ -16,3 +16,11 @@ server.route({
     view: 'news'
   }
 });
+
+server.route({
+  method: 'GET',
+  path: '/noticia/{slug}',
+  handler: {
+    view: 'news_article'
+  }
+});

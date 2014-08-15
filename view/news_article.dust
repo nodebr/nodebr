@@ -1,0 +1,11 @@
+{>"layout/main"/}
+{<body}
+<div class="container">
+  {#news_article}
+    <div class="row">
+      <h1>Marcos</h1>
+      <h1>{slug}</h1>
+    </div>
+  {/news_article}
+</div>
+{/body}

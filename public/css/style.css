@@ -55,11 +55,19 @@ span.score {
   text-align: center;
 }
 
+span.score a h4 span.glyphicon-chevron-up{
+  padding-left: 2px;
+}
+
 article a h3{
   color: #303030;
 }
 
 a {
+  color: #80bd01;
+}
+
+a:visited {
   color: #80bd01;
 }
 
