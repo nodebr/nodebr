@@ -1,11 +1,32 @@
 {>"layout/main"/}
 {<body}
 <div class="container">
-  {#news_article}
-    <div class="row">
-      <h1>Marcos</h1>
-      <h1>{slug}</h1>
-    </div>
+  {@news_article}
+      {#news}
+      <div class="row">
+        <h1>{title}</h1>
+      </div>
+
+
+      <div class="comments">
+        <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              var disqus_developer = 1;
+              var disqus_identifier = '{slug}';
+              var disqus_category_id = 'news';
+              var disqus_shortname = 'nodebrorg'; 
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </div>
+    {/news}
   {/news_article}
 </div>
 {/body}
