@@ -47,36 +47,29 @@
   });
 
   function scorePlus(slug){
-    console.log('lol');
     $.ajax({
       type: 'PUT',
       url: "/api/v1/news/"+slug+"/karma",
       data: { karma: 1},
       dataType: 'application/json',
-      success: function(data){
-        console.log(data);
-      }
-
-    })
-    .done(function(data){
-      console.log('lol');
-      $('h4#'+slug).html(data.karma);
+      complete: updateKarma
     });
   }
 
   function scoreMinus(slug){
-    console.log('minus');
     var ajax = $.ajax({
       type: 'PUT',
       url: "/api/v1/news/"+slug+"/karma",
       data: { karma: -1},
       dataType: 'application/json',
+      complete: updateKarma
     });
+  }
 
-    ajax.done(function(data){
-      console.log(data);
-      $('h4#'+slug).html(data.karma);
-    });
+  function updateKarma(data){
+    var news = JSON.parse(data.responseText);
+    if(data.status == 200)
+      $('h4#'+news.slug).html(news.karma);
   }
 
 </script>
