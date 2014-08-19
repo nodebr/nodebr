@@ -1,32 +1,60 @@
 {>"layout/main"/}
 {<body}
 <div class="container">
+  <header id="new_news" class="pull-right">
+    <a href="/noticias/novo" class="btn btn-node">Novo Post</a>
+  </header>
   {@news_article}
       {#news}
-      <div class="row">
-        <h1>{title}</h1>
-      </div>
+        <span class="pull-left score">
+          <a href="#">
+            <h4>
+              <span class="glyphicon glyphicon-chevron-up"></span>
+            </h4>
+          </a>
+          <h4>{karma}</h4>
+          <a href="#">
+            <h4>
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </h4>
+          </a>
+        </span>
+        <div class="row">
+          <h1>{title}</h1>
+          <header class="postInfo">
+            {#date}
+            <span id="date">{date}</span>
+            {/date}
+            &nbsp;&nbsp;
+            Postado por: <span id="author">{user.name} </span>
+          </header>
+          <br />
+          <a target="_blank" href="{link}">{link}</a>
+          <br />
+          <article id="description">{description}</article>
+        </div>
 
+        <div class="comments">
+          <div id="disqus_thread"></div>
+            <script type="text/javascript">
 
-      <div class="comments">
-        <div id="disqus_thread"></div>
-          <script type="text/javascript">
-              var disqus_developer = 1;
-              var disqus_identifier = '{slug}';
-              var disqus_category_id = 'news';
-              var disqus_shortname = 'nodebrorg'; 
+                var disqus_shortname = 'nodebrorg';
 
-              /* * * DON'T EDIT BELOW THIS LINE * * */
-              (function() {
-                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      </div>
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+      {:else}
+        <span style="text-align: center;">
+          <h1>Esse post pode ter sido removido!</h1>
+        </span>
     {/news}
-  {/news_article}
+{/news_article}
 </div>
 {/body}

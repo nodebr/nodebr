@@ -1,0 +1,89 @@
+{>"layout/main"/}
+{<body}
+  <div class="container">
+    <h1>Nova postagem à vista!!</h1>
+    <div class="panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" role="form" method="POST" id="news">
+
+          <div class="form-group title">
+            <label for="title" class="col-sm-2 control-label">Titulo</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="title" placeholder="Titulo">
+            </div>
+          </div>
+          <div class="form-group description">
+            <label for="description" class="col-sm-2 control-label">Descrição</label>
+            <div class="col-sm-8">
+              <textarea class="form-control" id="description" placeholder="Descrição" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group link">
+            <label for="link" class="col-sm-2 control-label">Link</label>
+            <div class="col-sm-8">
+              <input type="url" class="form-control" id="link" placeholder="Link">
+            </div>
+          </div>
+          <div class="form-group name">
+            <label for="author" class="col-sm-2 control-label">Autor</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="author" placeholder="Autor">
+            </div>
+          </div>
+          <div class="form-group email">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-8">
+              <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <a href="#" class="btn btn-node">Postar</a>
+              <div id="post" style="display: none;"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{/body}
+{<footer}
+<script type="text/javascript">
+  $('a').click(function(event){
+    $('.error').removeClass('error');
+    $('.has-error').removeClass('has-error');
+    $('#post').html('Salvando Notícia...').show();
+    event.preventDefault();
+    var data = {
+      title: $('#title').val(),
+      link: $('#link').val(),
+      description: $('#description').val(),
+      user: {
+        name: $('#author').val(),
+        email: $('#email').val()
+      }
+    };
+
+    $.post( "/api/v1/news", data)
+      .done(function( data ) {
+        window.location.href = "/noticia/"+data.slug;
+      })
+      .error(function( data){
+        var erroKey = data.responseJSON.validation.keys[0];
+        if(erroKey == 'user.name'){
+          $('.name').addClass('has-error');
+        }else{
+          if(erroKey == 'user.email'){
+            $('.email').addClass('has-error');
+          }else{
+            $('.'+erroKey).addClass('has-error');
+          }
+        }
+
+        $('#post').addClass('error').html(data.responseJSON.message);
+
+    });
+  });
+
+</script>
+{/footer}

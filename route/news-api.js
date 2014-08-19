@@ -61,3 +61,27 @@ server.route({
     }
   }
 });
+
+
+// Update Karma
+server.route({
+  method: 'PUT',
+  path: '/api/v1/news/{slug}/karma',
+  handler: function(req, res){
+    var slug = encodeURIComponent(req.params.slug);
+    News.findOneAndUpdate({'slug': slug}, {$inc: {karma: req.payload.karma}},
+      function(err, data){
+          if(err)
+            throw err;
+
+          res(data);
+        });
+  },
+  config: {
+    validate: {
+      payload: {
+        karma: Joi.any().allow([1, -1]).required()
+      }
+    }
+  }
+});

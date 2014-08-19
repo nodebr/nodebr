@@ -15,7 +15,9 @@ var echoSchema = new mongoose.Schema({
     default: ''
   },
   slug: {
-    type: String
+    type: String,
+    unique: true,
+    index: true
   },
   karma: {
     type: Number,
@@ -42,7 +44,8 @@ var echoSchema = new mongoose.Schema({
 });
 
 echoSchema.pre('save', function(next){
-  this.slug = slug(this.title);
+  var ndate = new Date(this.created);
+  this.slug = slug(this.title+ndate.getTime());
   next();
 });
 
