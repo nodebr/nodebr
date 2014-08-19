@@ -9,13 +9,13 @@
     {#news}
     <div class="col-lg-12">
       <span class="pull-left score">
-        <a class="karmaUp" data-karma="{slug}" href="">
+        <a class="karmaUp" onClick="scorePlus('{slug}')">
           <h4>
             <span class="glyphicon glyphicon-chevron-up"></span>
           </h4>
         </a>
-        <h4>{karma}</h4>
-        <a class="karmaDown" data-karma="{slug}" href="">
+        <h4 id="{slug}">{karma}</h4>
+        <a class="karmaDown" onClick="scoreMinus('{slug}')">
           <h4>
             <span class="glyphicon glyphicon-chevron-down"></span>
           </h4>
@@ -43,22 +43,41 @@
 {<footer}
 <script type="text/javascript">
   $('a.karmaUp').click(function(event){
-    console.log($(this).prop('data-slug'));
-    var slug = $(this).prop('data-slug');
     event.preventDefault();
+  });
 
+  function scorePlus(slug){
+    console.log('lol');
     $.ajax({
       type: 'PUT',
       url: "/api/v1/news/"+slug+"/karma",
       data: { karma: 1},
-      dataType: 'application/json'
+      dataType: 'application/json',
+      success: function(data){
+        console.log(data);
+      }
 
     })
     .done(function(data){
-      $('.score h4').html(data.karma);
+      console.log('lol');
+      $('h4#'+slug).html(data.karma);
+    });
+  }
+
+  function scoreMinus(slug){
+    console.log('minus');
+    var ajax = $.ajax({
+      type: 'PUT',
+      url: "/api/v1/news/"+slug+"/karma",
+      data: { karma: -1},
+      dataType: 'application/json',
     });
 
-  });
+    ajax.done(function(data){
+      console.log(data);
+      $('h4#'+slug).html(data.karma);
+    });
+  }
 
 </script>
 {/footer}
