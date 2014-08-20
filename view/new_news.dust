@@ -1,7 +1,8 @@
 {>"layout/main"/}
 {<body}
   <div class="container">
-    <h1>Nova postagem à vista!!</h1>
+  {@new_news}
+    <h1>{newPost}</h1>
     <div class="panel-default">
       <div class="panel-body">
         <form class="form-horizontal" role="form" method="POST" id="news">
@@ -45,6 +46,7 @@
         </form>
       </div>
     </div>
+  {/new_news}
   </div>
 {/body}
 {<footer}
