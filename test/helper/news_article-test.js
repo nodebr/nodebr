@@ -3,23 +3,39 @@ var assert = require('assert');
 var dust = require(__dirname + '/../../lib/hapi-dust');
 require(__dirname + '/../mock/loader').models();
 var dropper = require(__dirname + '/../mock/dropper');
+var mongoose = require('mongoose');
+var News = mongoose.model('news');
 
-describe('Teste do helper @news_article', function(){
+describe('Teste do helper @new_news', function(){
 
   // Limpando o banco de dados antes e depois das operações
   before(dropper);
   after(dropper);
 
-  it('Deve renderizar o formulário de nova noticia', function(cb){
-    var template = '{@new_news}{/new_news}';
+  // Criando uma notítica para ser testada
+  before(function(cb){
+    var news = new News({
+      title : 'Testing news',
+      link : 'http://nodebr.org',
+      description: 'This is a testing news for testing purposes.',
+      user: {
+        name: 'Travis CI',
+        email: 'support@travis-ci.com'
+      }
+    });
+
+    news.save(cb);
+  });
+
+  it('Deve renderizar as notícias', function(cb){
+    var template = '{@news}{#news}{title}{/news}{/news}';
     dust.compile(template, {}, function(err, compiled){
+      assert.ifError(err);
+      compiled({}, {}, function(err, html){
         assert.ifError(err);
-        //context.stack.head.params
-        compiled({}, {}, function(err, html){
-          assert.ifError(err);
-          assert.ok(html.indexOf('Nova postagem à vista!!') > -1);
-          cb();
-        });
+        assert.ok(html.indexOf('Testing news') > -1);
+        cb();
       });
+    });
   });
 });
