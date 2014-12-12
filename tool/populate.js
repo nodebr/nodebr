@@ -5,7 +5,7 @@
 // cronológica de ocorrência
 
 var db = require(__dirname + '/../lib/db');
-var faker = require('Faker');
+var faker = require('faker');
 
 // Conecta no banco de dados
 var conectar = function(){
@@ -39,12 +39,12 @@ var news = function(){
   var News = require(__dirname + '/../model/news-model');
   var collection = Array.apply(null, {length: 50}).map(function(){
     return {
-      title: faker.Lorem.sentence(),
-      link: 'http://' + faker.Internet.domainName(),
-      description: faker.Lorem.paragraphs(2),
+      title: faker.lorem.sentence(),
+      link: 'http://' + faker.internet.domainName(),
+      description: faker.lorem.paragraphs(2),
       user: {
-        name: faker.Name.findName(),
-        email: faker.Internet.email()
+        name: faker.name.findName(),
+        email: faker.internet.email()
       }
     };
   });
