@@ -4,6 +4,8 @@ var server = require(__dirname + '/../../lib/http');
 var loader = require(__dirname + '/../mock/loader');
 var dropper = require(__dirname + '/../mock/dropper');
 var request = require('supertest');
+var db = require(__dirname + '/../../lib/db');
+var news = require(__dirname + '/../../model/news-model');
 
 loader.routes();
 loader.models();
@@ -47,5 +49,27 @@ describe('Rota /api/v1/news', function(){
         cb();
       });
   });
+
+  it('PUT aumentanto o Karma score de uma noticia '+
+        'deve retornar a noticia', function(cb){
+
+          db.model('news',news);
+
+          news.findOne({'title' : 'Testing news'}, function(err, not){
+            if(err)
+              throw err;
+            request(server.listener)
+              .put('/api/v1/news/'+not.slug+'/karma')
+              .send({karma : 1})
+              .expect(200)
+              .expect('Content-Type', 'application/json; charset=utf-8')
+              .end(function(err, res){
+                assert.ifError(err);
+                assert.ok(res.body.karma === 1);
+                cb();
+              });
+          });
+
+        });
 
 });

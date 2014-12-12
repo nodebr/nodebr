@@ -8,11 +8,3 @@ server.route({
     view: 'index'
   }
 });
-
-server.route({
-  method: 'GET',
-  path: '/noticias',
-  handler: {
-    view: 'news'
-  }
-});

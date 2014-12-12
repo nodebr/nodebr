@@ -46,3 +46,69 @@ body {
   font-size: 14px;
   color: #cccccc;
 }
+
+span.score {
+  margin-top: 10px;
+  margin-right: 10px;
+  min-width: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+span.score a h4 span.glyphicon-chevron-up{
+  padding-left: 2px;
+}
+
+article a h3{
+  color: #303030;
+}
+
+a {
+  color: #80bd01;
+}
+
+a:visited {
+  color: #80bd01;
+}
+
+a:hover{
+  text-decoration: none;
+  color: rgba(139, 190, 0, 0.6)
+}
+
+.btn-node {
+  background-color: #80bd01;
+  color: #ffffff !important;
+  font-weight: bolder;
+}
+
+.form-control:focus{
+  border-color: #80bd01;
+  box-shadow:  0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(139, 190, 0, 0.6)
+}
+
+#post {
+  color: #80bd01;
+  font-weight: bolder;
+}
+
+.error {
+  color: #ff0000 !important;
+  font-weight: bolder;
+}
+
+.postInfo {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+#author {
+  font-weight: bolder;
+  color: #80bd01;
+}
+#date {
+  font-weight: bold;
+}
+
+article#description{
+  font-size: 1.5em;
+}
