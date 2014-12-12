@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Servidor HTTP', function(){
   it('O servidor HTTP deve exportar uma instância do hapi', function(){
-    assert.equal(server.info.host, '0.0.0.0');
+    assert.equal(server.info.address, '0.0.0.0');
   });
 
   it('Deve ser capaz de iniciar um servidor na porta padrão', function(cb){
