@@ -43,10 +43,33 @@ fork do projeto e mandar uma pull request.
 
 ### Links importantes
 
-Lista de e-mail: https://groups.google.com/forum/?hl=pt#!forum/nodebr<br />
-NodeBR no IRC: https://webchat.freenode.net/?channels=#nodebr<br />
-Site da comunidade: http://nodebr.org<br />
-Site do Meetup de São Paulo: http://www.meetup.com/Node-js-Sao-Paulo
+* Lista de e-mail: https://groups.google.com/forum/?hl=pt#!forum/nodebr
+* NodeBR no IRC: https://webchat.freenode.net/?channels=#nodebr
+* Site da comunidade: http://nodebr.org
+* Site do Meetup de São Paulo: http://www.meetup.com/Node-js-Sao-Paulo
+
+### Rodando o projeto
+
+Primeiro tenha certeza que o MongoDB está rodando, se você precisar alterar
+alguma configuração para poder acessar o banco de dados, faça isso no arquivo
+[`config/default.json`](config/default.json);
+
+```bash
+$ git clone https://github.com/nodebr/nodebr
+$ cd nodebr
+$ npm install
+$ npm start
+```
+
+Agora basta você acessar `http://localhost:8080`
+
+### Testes
+
+```bash
+$ git clone https://github.com/nodebr/nodebr
+$ cd nodebr
+$ make test
+```
 
 ### Licença MIT
 

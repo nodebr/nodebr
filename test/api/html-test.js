@@ -11,7 +11,7 @@ describe('Rota /', function(){
     request(server.listener)
       .get('/')
       .expect(200)
-      .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect('Content-Type', 'text/html')
       .end(function(err){
         assert.ifError(err);
         cb();
@@ -50,7 +50,7 @@ describe('Rota /noticias', function(){
     request(server.listener)
       .get('/noticias')
       .expect(200)
-      .expect('Content-Type', 'text/html; charset=utf-8')
+      .expect('Content-Type', 'text/html')
       .end(function(err){
         assert.ifError(err);
         cb();

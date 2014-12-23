@@ -12,7 +12,7 @@ requi(__dirname + '/route');
 
 // Esperamos o banco de dados conectar
 db.connection.on('connected', function(){
-  log.info('Baco de dados conectado.');
+  log.info('Banco de dados conectado.');
 
   // Inicializando o servidor http
   httpServer.start(function(err){

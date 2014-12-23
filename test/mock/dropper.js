@@ -9,8 +9,8 @@ var drop = function(cb){
 };
 
 module.exports = function(cb){
-  if(!mongoose.connection.readyState)
-    mongoose.connection.on('open', function(){
+  if(mongoose.connection.readyState !== 1)
+    mongoose.connection.on('connected', function(){
       drop(cb);
     });
   else

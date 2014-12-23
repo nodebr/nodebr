@@ -4,6 +4,7 @@
   "description": "Site da comunidade NodeBR",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "make test-coveralls"
   },
   "repository": {
@@ -17,21 +18,24 @@
   },
   "homepage": "https://github.com/nodebr/nodebr",
   "devDependencies": {
-    "jshint": "^2.5.2",
-    "mocha": "^1.21.3",
-    "istanbul": "^0.3.0",
-    "supertest": "^0.3.0",
-    "coveralls": "^2.11.1"
+    "coveralls": "^2.11.2",
+    "faker": "^2.1.1",
+    "istanbul": "^0.3.5",
+    "jshint": "^2.5.10",
+    "mocha": "^2.0.1",
+    "supertest": "^0.15.0"
   },
   "dependencies": {
-    "dustjs-helpers": "^1.2.0",
-    "dustjs-linkedin": "^2.4.0",
-    "hapi": "^6.4.0",
-    "joi": "^4.6.2",
-    "mongoose": "^3.8.14",
-    "mongoose-paginate": "^3.1.0",
+    "dustjs-helpers": "^1.5.0",
+    "dustjs-linkedin": "^2.5.1",
+    "hapi": "^8.0.0",
+    "joi": "^5.0.2",
+    "moment": "^2.8.4",
+    "mongoose": "^3.8.20",
+    "mongoose-paginate": "^3.1.3",
     "requi": "^0.2.2",
-    "winston": "^0.7.3",
+    "slug": "^0.8.0",
+    "winston": "^0.8.3",
     "xconf": "0.0.2"
   }
 }
