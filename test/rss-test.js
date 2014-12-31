@@ -14,16 +14,6 @@ describe('Biblioteca de geracao de RSS', function() {
 			created: new Date(2014, 04, 21, 12, 11, 0)
 		});
 
-		// var xmlItem = 
-		// '<item>' +
-	 //        '<title><![CDATA[Configurando o package.json]]></title>' +
-	 //        '<description><![CDATA[Como configurar o package.json e ' +
-	 //        'entendendo os seus simbolos]]></description>' +
-	 //        '<link>http://domain.com</link>' +
-	 //        '<guid isPermaLink="true">http://domain.com</guid>' +
-	 //        '<dc:creator><![CDATA[Highlander]]></dc:creator>' +
-	 //        '<pubDate>Wed, 21 May 2014 15:11:00 GMT</pubDate>' +
-	 //    '</item>';
 		var xmlItem = []; 
 		xmlItem.push('<item>');
 	    xmlItem.push('<title><![CDATA[Configurando o package.json]]></title>');
@@ -35,7 +25,7 @@ describe('Biblioteca de geracao de RSS', function() {
 	    xmlItem.push('<pubDate>Wed, 21 May 2014 15:11:00 GMT</pubDate>');
 	    xmlItem.push('</item>');
 
-	    var xmlRss = rss.getRSS().replace(/(\r\n|\n|\r)/gm,'');
+	    var xmlRss = rss.getRSS();
 		assert.ok(xmlRss.indexOf(xmlItem.join('')) > -1);
 
 		rss.addItems({
@@ -57,7 +47,7 @@ describe('Biblioteca de geracao de RSS', function() {
 	    xmlItem.push('<pubDate>Sat, 15 Feb 2014 14:11:00 GMT</pubDate>');
 	    xmlItem.push('</item>');
 
-	    xmlRss = rss.getRSS().replace(/(\r\n|\n|\r)/gm,'');
+	    xmlRss = rss.getRSS();
 		assert.ok(xmlRss.indexOf(xmlItem.join('')) > -1);
 	});
 });
