@@ -23,8 +23,7 @@
     "istanbul": "^0.3.5",
     "jshint": "^2.5.10",
     "mocha": "^2.0.1",
-    "supertest": "^0.15.0",
-    "xml2js": "^0.4.4"
+    "supertest": "^0.15.0"
   },
   "dependencies": {
     "dustjs-helpers": "^1.5.0",
