@@ -26,7 +26,8 @@ describe('Biblioteca de geracao de RSS', function() {
 	        '<pubDate>Wed, 21 May 2014 15:11:00 GMT</pubDate>' +
 	    '</item>';
 
-		///assert.ok(rss.getRSS().replace(/(\r\n|\n|\r)/gm,'').indexOf(xmlItem) > -1);
+	    var xmlRss = rss.getRSS().replace(/(\r\n|\n|\r)/gm,'');
+		assert.ok(xmlRss.indexOf(xmlItem) > -1);
 
 		rss.addItems({
 			title: 'Performance em nodejs',
@@ -46,6 +47,7 @@ describe('Biblioteca de geracao de RSS', function() {
 	        '<pubDate>Sat, 15 Feb 2014 14:11:00 GMT</pubDate>' +
 	    '</item>';
 
-		// assert.ok(rss.getRSS().replace(/(\r\n|\n|\r)/gm,'').indexOf(xmlItem) > -1);
+	    xmlRss = rss.getRSS().replace(/(\r\n|\n|\r)/gm,'');
+		// assert.ok(xmlRss.indexOf(xmlItem) > -1);
 	});
 });
