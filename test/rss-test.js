@@ -1,6 +1,4 @@
 var rss = require(__dirname + '/../lib/rss');
-var assert = require('assert');
-
 
 describe('Biblioteca de geracao de RSS', function() {
 	var description = 'Como configurar o package.json e ' +
