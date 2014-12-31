@@ -41,7 +41,7 @@ describe('Biblioteca de geracao de RSS', function() {
 	        '<description><![CDATA[Dicas para melhorar a performance ' +
 	        'de suas apps]]></description>' +
 	        '<link>http://domain.com</link>' +
-	        '<guid isPermaLink="true">http://domain.com</guid>' +
+	        '<guid isPermaLink="true">http://domain.com</guid>' + 
 	        '<dc:creator><![CDATA[Peter Parker]]></dc:creator>' +
 	        '<pubDate>Sat, 15 Feb 2014 14:11:00 GMT</pubDate>' +
 	    '</item>';
