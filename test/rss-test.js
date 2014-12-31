@@ -3,12 +3,14 @@ var assert = require('assert');
 
 
 describe('Biblioteca de geracao de RSS', function() {
+	var description = 'Como configurar o package.json e ' +
+		'entendendo os seus simbolos';
 
 	it('Deve inserir itens', function() {
 		rss.addItems({
 			title: 'Configurando o package.json',
 			link: 'http://domain.com',
-			description: 'Como configurar o package.json e entendendo os seus simbolos',
+			description: description,
 			user: {name: 'Highlander'},
 			created: new Date(2014, 04, 21, 12, 11, 0)
 		});
