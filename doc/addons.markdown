@@ -428,16 +428,23 @@ Test it with:
     console.log( obj.plusOne() ); // 12
     console.log( obj.plusOne() ); // 13
 
-### Factory of wrapped objects
+### Fábrica de objetos embrulhados (Factory of wrapped objects)
 
-This is useful when you want to be able to create native objects without
+<!--### Factory of wrapped objects-->
+
+Isto é útil quando você quer criar objetos nativos sem instancia-lo explicitamente com o operado `new` no JavaScript, ex.
+
+<!--This is useful when you want to be able to create native objects without
 explicitly instantiating them with the `new` operator in JavaScript, e.g.
+-->
 
     var obj = addon.createObject();
-    // instead of:
+    // Invés de:
     // var obj = new addon.Object();
 
-Let's register our `createObject` method in `addon.cc`:
+Vamos registrar nosso método `createObject` em `addon.cc`:
+
+<!--Let's register our `createObject` method in `addon.cc`:-->
 
     // addon.cc
     #include <node.h>
@@ -459,8 +466,11 @@ Let's register our `createObject` method in `addon.cc`:
 
     NODE_MODULE(addon, InitAll)
 
-In `myobject.h` we now introduce the static method `NewInstance` that takes
+No `myobject.h`, nós introduzimos o método estático `NewInstance` que cuida de instanciar o objeto (em outras palavras, ele faz o trabalho do `new` no JavaScript):
+
+<!--In `myobject.h` we now introduce the static method `NewInstance` that takes
 care of instantiating the object (i.e. it does the job of `new` in JavaScript):
+-->
 
     // myobject.h
     #ifndef MYOBJECT_H
@@ -486,7 +496,8 @@ care of instantiating the object (i.e. it does the job of `new` in JavaScript):
 
     #endif
 
-The implementation is similar to the above in `myobject.cc`:
+A implementação é similar a de cima em `myobject.cc`:
+<!--The implementation is similar to the above in `myobject.cc`:-->
 
     // myobject.cc
     #include <node.h>
@@ -509,7 +520,7 @@ The implementation is similar to the above in `myobject.cc`:
       tpl->SetClassName(String::NewFromUtf8(isolate, "MyObject"));
       tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
-      // Prototype
+      // Protótipo
       NODE_SET_PROTOTYPE_METHOD(tpl, "plusOne", PlusOne);
 
       constructor.Reset(isolate, tpl->GetFunction());
@@ -520,13 +531,13 @@ The implementation is similar to the above in `myobject.cc`:
       HandleScope scope(isolate);
 
       if (args.IsConstructCall()) {
-        // Invoked as constructor: `new MyObject(...)`
+        // Invocado como construtor: `new MyObject(...)`
         double value = args[0]->IsUndefined() ? 0 : args[0]->NumberValue();
         MyObject* obj = new MyObject(value);
         obj->Wrap(args.This());
         args.GetReturnValue().Set(args.This());
       } else {
-        // Invoked as plain function `MyObject(...)`, turn into construct call.
+        // Invocado como uma função `MyObject(...)`, se torna uma chamada de construtor.
         const int argc = 1;
         Local<Value> argv[argc] = { args[0] };
         Local<Function> cons = Local<Function>::New(isolate, constructor);
@@ -556,7 +567,7 @@ The implementation is similar to the above in `myobject.cc`:
       args.GetReturnValue().Set(Number::New(isolate, obj->value_));
     }
 
-Test it with:
+Teste com:
 
     // test.js
     var createObject = require('./build/Release/addon');
