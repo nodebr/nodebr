@@ -1,42 +1,43 @@
 # Addons
 
-Addons are dynamically linked shared objects. They can provide glue to C and
-C++ libraries. The API (at the moment) is rather complex, involving
-knowledge of several libraries:
+O termo addon se refere à algo que esta sendo adicionado ao `node`.
 
- - V8 JavaScript, a C++ library. Used for interfacing with JavaScript:
-   creating objects, calling functions, etc.  Documented mostly in the
-   `v8.h` header file (`deps/v8/include/v8.h` in the Node source
-   tree), which is also available
-   [online](http://izs.me/v8-docs/main.html).
+Addons são objetos compartilhados dinamicamente referenciados. Eles fornecem 
+uma cola entre bibliotecas escritas em linguagem C e C++. A API (até o
+ momento) é bastante complexa, envolvendo conhecimento de diversas bibliotecas:
 
- - [libuv](https://github.com/joyent/libuv), C event loop library.
-   Anytime one needs to wait for a file descriptor to become readable,
-   wait for a timer, or wait for a signal to be received one will need
-   to interface with libuv. That is, if you perform any I/O, libuv will
-   need to be used.
+ - JavaScript V8, uma biblioteca C++. Usado para fazer interface com Javascript:
+   criando objetos, chamando funções etc. Documentado principalmente no arquivo 
+   header `v8.h` (`deps/v8/include/v8.h` na árvore de código fonte Node), 
+   que também esta disponível [online](http://izs.me/v8-docs/main.html).
 
- - Internal Node libraries. Most importantly is the `node::ObjectWrap`
-   class which you will likely want to derive from.
+ - [libuv](https://github.com/joyent/libuv), biblioteca C de loop de eventos C.
+   A qualquer que for preciso aguardar que um descritor de arquivo seja 
+   disponibilizado para leitura, um timer seja aguardado ou um sinal é
+   aguardado será necessário fazer interface com libuv. Isto é, se
+   você fizer uma operação de E/S, será necessário usar libuv.
 
- - Others. Look in `deps/` for what else is available.
+ - Bibliotecas internas do Node. O mais importante é a clasee 
+   `node::ObjectWrap` à qual você vai provavelmente querer derivar.
 
-Node statically compiles all its dependencies into the executable.
-When compiling your module, you don't need to worry about linking to
-any of these libraries.
+ - Outras. Veja em `deps/` para saber o que mais esta disponível.
 
-All of the following examples are available for
-[download](https://github.com/rvagg/node-addon-examples) and may be
-used as a starting-point for your own Addon.
+Node estaticamente compila todas as suas dependências dentro do executável.
+Quando for compilar seu módulo, você não precisa se preocupar em referenciar
+qualquer uma dessas bibliotecas.
+
+Todos os exemplos a seguir estão disponíveis para 
+[download](https://github.com/rvagg/node-addon-examples) e podem ser usadas
+como ponto de partida para seu próprio Addon.
 
 ## Hello world
 
-To get started let's make a small Addon which is the C++ equivalent of
-the following JavaScript code:
+Para começar vamos fazer um pequeno Addon que é um equivalente C++ do seguinte
+código Javascript:
 
     module.exports.hello = function() { return 'world'; };
 
-First we create a file `hello.cc`:
+Primeiro nós criamos um arquivo `hello.cc`:
 
     // hello.cc
     #include <node.h>
@@ -55,21 +56,21 @@ First we create a file `hello.cc`:
 
     NODE_MODULE(addon, init)
 
-Note that all Node addons must export an initialization function:
+Note que todos os addons de Node devem exportar uma função de inicialização:
 
     void Initialize (Handle<Object> exports);
-    NODE_MODULE(module_name, Initialize)
+    NODE_MODULE(nome_modulo, Initialize)
 
-There is no semi-colon after `NODE_MODULE` as it's not a function (see
-`node.h`).
+Não há o caracter ponto-e-vírgula(;) depois de `NODE_MODULE` porque este trecho
+ não é uma função (veja `node.h`).
 
-The `module_name` needs to match the filename of the final binary (minus the
-.node suffix).
+O `nome_modulo` precisa ser o mesmo do nome do arquivo do binário final (menos
+o sufixo .node).
 
-The source code needs to be built into `addon.node`, the binary Addon. To
-do this we create a file called `binding.gyp` which describes the configuration
-to build your module in a JSON-like format. This file gets compiled by
-[node-gyp](https://github.com/TooTallNate/node-gyp).
+O código fonte precisa ser compilado para `addon.node`, o binário do Addon.
+Para fazer isso nós criamos um arquivo chamado `binding.gyp` que descreve a 
+configuração para compilar seu módulo em um formato JSON. Este arquivo é 
+por [node-gyp](https://github.com/TooTallNate/node-gyp).
 
     {
       "targets": [
@@ -80,26 +81,28 @@ to build your module in a JSON-like format. This file gets compiled by
       ]
     }
 
-The next step is to generate the appropriate project build files for the
-current platform. Use `node-gyp configure` for that.
+O próximo passo é gerar os arquivos apropriados para a construção do projeto
+na plataforma em uso. Use `node-gyp configure` para isso.
 
-Now you will have either a `Makefile` (on Unix platforms) or a `vcxproj` file
-(on Windows) in the `build/` directory. Next invoke the `node-gyp build`
-command.
+Agora, você terá ou um arquivo `Makefile` (em plataformas Unix) ou um arquivo 
+`vcxproj` (no Windows) no diretório `build/`. Agora execute o comando 
+`node-gyp build`.
 
-Now you have your compiled `.node` bindings file! The compiled bindings end up
-in `build/Release/`.
+Agora você tem seu arquivo de vínculos `.node`! Os vínculos estarão em
+`build/Release/`.
 
-You can now use the binary addon in a Node project `hello.js` by pointing
-`require` to the recently built `hello.node` module:
+Agora você pode usar o arquivo binário compilado do addon em um projeto Node
+`hello.js` fazendo apontamento com `require` ao módulo `hello.node` 
+recentemente construído:
 
     // hello.js
     var addon = require('./build/Release/addon');
 
     console.log(addon.hello()); // 'world'
 
+Por favor, veja padrões abaixo para mais informações ou
 Please see patterns below for further information or
-<https://github.com/arturadib/node-qt> for an example in production.
+<https://github.com/arturadib/node-qt> para um exemplo em produção.
 
 
 ## Addon patterns
