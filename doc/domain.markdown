@@ -324,51 +324,51 @@ specified emitter.
 
 ### domain.bind(callback)
 
-* `callback` {Function} The callback function
-* return: {Function} The bound function
+* `callback` {Função} A função callback
+* retorna: {Função} A função vinculada
 
-The returned function will be a wrapper around the supplied callback
-function.  When the returned function is called, any errors that are
-thrown will be routed to the domain's `error` event.
+A função retornada será um envolope em torno da função callback fornecida.
+Quando a função retornada é chamada, quaisquer erros que forem lançados
+serão roteados para o evento `error` do domínio.
 
-#### Example
+#### Exemplo
 
     var d = domain.create();
 
     function readSomeFile(filename, cb) {
       fs.readFile(filename, 'utf8', d.bind(function(er, data) {
-        // if this throws, it will also be passed to the domain
+        // Se lançar erro, também será passado ao domínio
         return cb(er, data ? JSON.parse(data) : null);
       }));
     }
 
     d.on('error', function(er) {
-      // an error occurred somewhere.
-      // if we throw it now, it will crash the program
-      // with the normal line number and stack message.
+      // um erro aconteceu em algum lugar :(
+      // Se lançarmos o erro agora, irá interromper a execução do programa
+      // com o número de linha normal e a mensagem da pilha de chamadas.
     });
 
 ### domain.intercept(callback)
 
-* `callback` {Function} The callback function
-* return: {Function} The intercepted function
+* `callback` {Função} A função callback
+* retorna: {Função} A função interceptada
 
-This method is almost identical to `domain.bind(callback)`.  However, in
-addition to catching thrown errors, it will also intercept `Error`
-objects sent as the first argument to the function.
+Este método é muito parecido com `domain.bind(callback)`.
+Entretanto, em adição à captura de erros ocorridos, também interceptará objetos
+ `Error` enviados como primeiro argumento para a função.
 
-In this way, the common `if (er) return callback(er);` pattern can be replaced
-with a single error handler in a single place.
+Desta forma, o padrão `if (er) return callback(er);` pode ser substituído
+com um único manipulador em um único lugar.
 
-#### Example
+#### Exemplo
 
     var d = domain.create();
 
     function readSomeFile(filename, cb) {
       fs.readFile(filename, 'utf8', d.intercept(function(data) {
-        // note, the first argument is never passed to the
-        // callback since it is assumed to be the 'Error' argument
-        // and thus intercepted by the domain.
+        // note, o primeiro argumento nunca é passado ao
+        // callback desde que este é assumido ser o argumento 'Erro'
+        // e então interceptado pelo domínio.
 
         // if this throws, it will also be passed to the domain
         // so the error-handling logic can be moved to the 'error'
