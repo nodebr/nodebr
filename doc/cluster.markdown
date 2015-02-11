@@ -1,13 +1,12 @@
 # Cluster
 
-    Stability: 2 - Unstable
+    Estabilidade: 2 - Instável
+Uma única instancia de Node roda em uma única thread. Para tirar vantagem dos
+sistemas multi-core o usuário as vezes vai querer inicar um cluster de processos
+Node para controlar a carga.
 
-A single instance of Node runs in a single thread. To take advantage of
-multi-core systems the user will sometimes want to launch a cluster of Node
-processes to handle the load.
-
-The cluster module allows you to easily create child processes that
-all share server ports.
+O módulo cluster permite você criar facilmente processos filhos que
+compartilham as portas do servidor.
 
     var cluster = require('cluster');
     var http = require('http');
@@ -23,15 +22,15 @@ all share server ports.
         console.log('worker ' + worker.process.pid + ' died');
       });
     } else {
-      // Workers can share any TCP connection
-      // In this case its a HTTP server
+      // Workers podem compartilhar qualquer conexão TCP
+      // Neste caso é um servidor HTTP
       http.createServer(function(req, res) {
         res.writeHead(200);
         res.end("hello world\n");
       }).listen(8000);
     }
 
-Running node will now share port 8000 between the workers:
+O nó que esta executando vai compartilhar a porta 8000 entre os workers:
 
     % NODE_DEBUG=cluster node server.js
     23521,Master Worker 23524 online
@@ -39,43 +38,46 @@ Running node will now share port 8000 between the workers:
     23521,Master Worker 23523 online
     23521,Master Worker 23528 online
 
-This feature was introduced recently, and may change in future versions.
-Please try it out and provide feedback.
+Essa caracteristica foi introduzida recentemente, e pode mudar nas versões futuras.
+Por favor esperimente essa característica e dê-nos um feedback.
 
-Also note that, on Windows, it is not yet possible to set up a named pipe
-server in a worker.
+No Windows, observe que ainda não é possivel montar um
+servidor de named pipe em um worker.
 
-## How It Works
+## Como Funciona
 
 <!--type=misc-->
 
-The worker processes are spawned using the `child_process.fork` method,
-so that they can communicate with the parent via IPC and pass server
-handles back and forth.
+Os processos workers são criados usando o método `child_process.fork`,
+para que eles possam se comunicar com o pai via IPC o servidor anterior
+controla o fluxo.
 
-The cluster module supports two methods of distributing incoming
-connections.
+O módulo cluster suporta dois métodos de distribuir conecções de entrada.
 
-The first one (and the default one on all platforms except Windows),
-is the round-robin approach, where the master process listens on a
-port, accepts new connections and distributes them across the workers
-in a round-robin fashion, with some built-in smarts to avoid
-overloading a worker process.
+O primeiro (e o padrão em todas as plataformas exeto Windows),
+é o abordagem round-robin onde o processo master escuta uma porta,
+aceita novas conecções e distribui-los entre os workers de um modo
+round-robin, com algums truques inteligentes para evitar
+sobrecarga de um processo worker.
 
-The second approach is where the master process creates the listen
-socket and sends it to interested workers. The workers then accept
-incoming connections directly.
+A segunda abordagem é onde o processo master cria o listen socket e
+envia aos workers interessados. Os workers em seguida aceitam as
+conecções de entrada diretamente.
 
-The second approach should, in theory, give the best performance.
-In practice however, distribution tends to be very unbalanced due
-to operating system scheduler vagaries. Loads have been observed
-where over 70% of all connections ended up in just two processes,
-out of a total of eight.
+A segunda abordagem deveria, na teoria, dá a melhor performance.
+No entanto na pratica, a distribuição tende a ser muito desbalanceada
+por causa dos imprevisíveis scheduler do sistema operacional.
+Cargas foram observadas onde mais de 70% das conecções são terminadas em apenas dois processos,
+de um total de oito.
 
-Because `server.listen()` hands off most of the work to the master
-process, there are three cases where the behavior between a normal
-node.js process and a cluster worker differs:
+Porque `server.listen()` ele deixa a maioria dos trabalhos para o processo master,
+existem três casos onde o comportamento entre um processo normal
+Node.js e um cluster worker difere:
 
+1. `server.listen({fd: 7})` Porque a mensagem é passada para o master,
+   o file descriptor 7 **no pai** será escutado, e o controle passado pelo
+   worker; em vez de ouvir a idéia do worker sobre a referência do
+   número 7 do file descriptor.
 1. `server.listen({fd: 7})` Because the message is passed to the master,
    file descriptor 7 **in the parent** will be listened on, and the
    handle passed to the worker, rather than listening to the worker's
