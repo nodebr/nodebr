@@ -1,40 +1,41 @@
 # Assert
 
-    Estabilide: 5 - Travado
-Este módulo é usado para escrever testes unitários para suas aplicações, 
-você pode acessá-lo com `require('assert')` 
+    Stability: 5 - Locked
+
+This module is used for writing unit tests for your applications, you can
+access it with `require('assert')`.
 
 ## assert.fail(actual, expected, message, operator)
 
-Lança uma exceção que exibe os valores para `actual` e `expected` separados pelo operador fornecido.
+Throws an exception that displays the values for `actual` and `expected` separated by the provided operator.
 
 ## assert(value[, message]), assert.ok(value[, message])
 
-Testa se o valor é verdadeiro, equivalente a `assert.equal(true, !!value, message);`
+Tests if value is truthy, it is equivalent to `assert.equal(true, !!value, message);`
 
 ## assert.equal(actual, expected[, message])
 
-Testes superficiais, de igualdade coerciva com o operador de comparação ( `==` ).
+Tests shallow, coercive equality with the equal comparison operator ( `==` ).
 
 ## assert.notEqual(actual, expected[, message])
 
-Tests shallow, coercive non-equality with the not equal comparison operator ( `!=` ).
+Testes superficiais de igualdade coeriva com operador de comparação diferente ( `!=` ).
 
 ## assert.deepEqual(actual, expected[, message])
 
-Tests for deep equality.
+Testa a igualdade profunda.
 
 ## assert.notDeepEqual(actual, expected[, message])
 
-Tests for any deep inequality.
+Testa qualquer desigualdade profunda.
 
 ## assert.strictEqual(actual, expected[, message])
 
-Tests strict equality, as determined by the strict equality operator ( `===` )
+Testa a igualdade restrita, como determinado pelo operador de igualdade restrita ( `===` )
 
 ## assert.notStrictEqual(actual, expected[, message])
 
-Tests strict non-equality, as determined by the strict not equal operator ( `!==` )
+Testa estritamente não equalitário, como determinado pelo operador de diferença restrita ( `!==` )
 
 ## assert.throws(block[, error][, message])
 
