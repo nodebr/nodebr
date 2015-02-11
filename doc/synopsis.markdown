@@ -18,4 +18,4 @@ Para executar o servidor, coloque o código em um arquivo com nome example.js e 
     > node example.js
     Server running at http://127.0.0.1:8124/
 
-Todos os exemplos na documentação pode ser executado de forma similar.
+Todos os exemplos na documentação podem ser executados de forma similar.
