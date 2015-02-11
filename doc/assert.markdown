@@ -1,21 +1,20 @@
 # Assert
 
-    Stability: 5 - Locked
-
-This module is used for writing unit tests for your applications, you can
-access it with `require('assert')`.
+    Estabilide: 5 - Travado
+Este módulo é usado para escrever testes unitários para suas aplicações, 
+você pode acessá-lo com `require('assert')` 
 
 ## assert.fail(actual, expected, message, operator)
 
-Throws an exception that displays the values for `actual` and `expected` separated by the provided operator.
+Lança uma exceção que exibe os valores para `actual` e `expected` separados pelo operador fornecido.
 
 ## assert(value[, message]), assert.ok(value[, message])
 
-Tests if value is truthy, it is equivalent to `assert.equal(true, !!value, message);`
+Testa se o valor é verdadeiro, equivalente a `assert.equal(true, !!value, message);`
 
 ## assert.equal(actual, expected[, message])
 
-Tests shallow, coercive equality with the equal comparison operator ( `==` ).
+Testes superficiais, de igualdade coerciva com o operador de comparação ( `==` ).
 
 ## assert.notEqual(actual, expected[, message])
 
@@ -60,7 +59,7 @@ Validate error message using RegExp:
       /value/
     );
 
-Validação de erro customizada:
+Custom error validation:
 
     assert.throws(
       function() {
@@ -76,9 +75,9 @@ Validação de erro customizada:
 
 ## assert.doesNotThrow(block[, message])
 
-Espera `block` para não lançar um erro , veja `assert.throws` para maior detalhes.
+Expects `block` not to throw an error, see `assert.throws` for details.
 
 ## assert.ifError(value)
 
-Testa se um valor não é um valor falso, lança erro se é verdadeiro. Útil quando
-estiver testando o primeiro argumento, `error` em callbacks.
+Tests if value is not a false value, throws if it is a true value. Useful when
+testing the first argument, `error` in callbacks.
