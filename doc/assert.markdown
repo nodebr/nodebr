@@ -1,4 +1,4 @@
-# Assert1
+# Assert
 
     Estabilide: 5 - Travado
 Este módulo é usado para escrever testes unitários para suas aplicações, 
@@ -18,30 +18,29 @@ Testes superficiais, de igualdade coerciva com o operador de comparação ( `==`
 
 ## assert.notEqual(actual, expected[, message])
 
-Tests shallow, coercive non-equality with the not equal comparison operator ( `!=` ).
+Testes superficiais de igualdade coeriva com operador de comparação diferente ( `!=` ).
 
 ## assert.deepEqual(actual, expected[, message])
 
-Tests for deep equality.
+Testa a igualdade profunda.
 
 ## assert.notDeepEqual(actual, expected[, message])
 
-Tests for any deep inequality.
+Testa qualquer desigualdade profunda.
 
 ## assert.strictEqual(actual, expected[, message])
 
-Tests strict equality, as determined by the strict equality operator ( `===` )
+Testa a igualdade restrita, como determinado pelo operador de igualdade restrita ( `===` )
 
 ## assert.notStrictEqual(actual, expected[, message])
 
-Tests strict non-equality, as determined by the strict not equal operator ( `!==` )
+Testa estritamente não equalitário, como determinado pelo operador de diferença restrita ( `!==` )
 
 ## assert.throws(block[, error][, message])
 
-Expects `block` to throw an error. `error` can be constructor, `RegExp` or
-validation function.
+Espera um `block` para lançar um erro. `error` pode ser um construtor, `RegExp` ou função de validação.
 
-Validate instanceof using constructor:
+Valida instanceof usando construtor:
 
     assert.throws(
       function() {
@@ -50,7 +49,7 @@ Validate instanceof using constructor:
       Error
     );
 
-Validate error message using RegExp:
+Valida mensagem de erro usando RegExp:
 
     assert.throws(
       function() {
@@ -59,7 +58,7 @@ Validate error message using RegExp:
       /value/
     );
 
-Custom error validation:
+Validação de erro customizada:
 
     assert.throws(
       function() {
@@ -75,9 +74,9 @@ Custom error validation:
 
 ## assert.doesNotThrow(block[, message])
 
-Expects `block` not to throw an error, see `assert.throws` for details.
+Espera `bloco` para não lançar um erro , veja `assert.throws` para maior detalhes.
 
 ## assert.ifError(value)
 
-Tests if value is not a false value, throws if it is a true value. Useful when
-testing the first argument, `error` in callbacks.
+Testa se um valor não é um valor falso, lança erro se é verdadeiro. Útil quando
+estiver testando o primeiro argumento, `error` em callbacks.
