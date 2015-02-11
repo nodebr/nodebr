@@ -173,8 +173,10 @@ Você pode testa-lo com o seguinte trecho JavaScript:
 
 ### Callbacks
 
-You can pass JavaScript functions to a C++ function and execute them from
-there. Here's `addon.cc`:
+Você pode passar funções JavaScript para funções C++ e executa-lás a partir daqui. Aqui está `addon.cc`:
+
+<!-- You can pass JavaScript functions to a C++ function and execute them from
+there. Here's `addon.cc`:-->
 
     // addon.cc
     #include <node.h>
@@ -197,26 +199,33 @@ there. Here's `addon.cc`:
 
     NODE_MODULE(addon, Init)
 
-Note that this example uses a two-argument form of `Init()` that receives
+Note que este exemplo utiliza o `Init()` com dois argumentos, sendo o segundo um objeto `module`. Isto permite que o addon sobrescreva completamente o `exports` com uma única função ao invés de adicionar a função como uma propriedade de `exports`.
+
+<!--Note that this example uses a two-argument form of `Init()` that receives
 the full `module` object as the second argument. This allows the addon
 to completely overwrite `exports` with a single function instead of
-adding the function as a property of `exports`.
+adding the function as a property of `exports`.-->
 
-To test it run the following JavaScript snippet:
+Para testar isto, execute o trecho de JavaScript seguinte:
+
+<!--To test it run the following JavaScript snippet:-->
 
     // test.js
     var addon = require('./build/Release/addon');
 
     addon(function(msg){
-      console.log(msg); // 'hello world'
+      console.log(msg); // 'Olá Mundo :D'
     });
 
 
-### Object factory
+### Fábrica de objeto (Object factory)
 
-You can create and return new objects from within a C++ function with this
+Você pode criar e retornar novos objetos de dentro de uma função C++ com este padrão `addon.cc`, que retorna um objeto com a propriedade `msg`, que ecoa a string passada para `createObject()`:
+
+<!--You can create and return new objects from within a C++ function with this
 `addon.cc` pattern, which returns an object with property `msg` that echoes
 the string passed to `createObject()`:
+-->
 
     // addon.cc
     #include <node.h>
@@ -239,14 +248,16 @@ the string passed to `createObject()`:
 
     NODE_MODULE(addon, Init)
 
-To test it in JavaScript:
+Para testar isto em JavaScript:
+
+<!--To test it in JavaScript:-->
 
     // test.js
     var addon = require('./build/Release/addon');
 
     var obj1 = addon('hello');
     var obj2 = addon('world');
-    console.log(obj1.msg+' '+obj2.msg); // 'hello world'
+    console.log(obj1.msg+' '+obj2.msg); // 'Ola mundo :D'
 
 
 ### Function factory
