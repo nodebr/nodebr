@@ -1,9 +1,8 @@
-# Synopsis
+# Sinopse
 
 <!--type=misc-->
 
-An example of a [web server](http.html) written with Node which responds with 'Hello
-World':
+Um exemplo de um [servidor web](http.html) escrito com Node que responde com 'Hello World':
 
     var http = require('http');
 
@@ -14,10 +13,9 @@ World':
 
     console.log('Server running at http://127.0.0.1:8124/');
 
-To run the server, put the code into a file called `example.js` and execute
-it with the node program
+Para executar o servidor, coloque o código em um arquivo com nome example.js e executá-lo junto com o node
 
     > node example.js
     Server running at http://127.0.0.1:8124/
 
-All of the examples in the documentation can be run similarly.
+Todos os exemplos na documentação pode ser executado de forma similar.
