@@ -104,14 +104,9 @@ Please see patterns below for further information or
 
 ## Addon patterns
 
-Below are some addon patterns to help you get started. Consult the online
-[v8 reference](http://izs.me/v8-docs/main.html) for help with the various v8
-calls, and v8's [Embedder's Guide](http://code.google.com/apis/v8/embed.html)
-for an explanation of several concepts used such as handles, scopes,
-function templates, etc.
+Abaixo alguns padrões de addons para ajuda-lo a iniciar. Consulte a [documentação online](http://izs.me/v8-docs/main.html) para obter ajuda com diversas chamadas do V8, e o [Guia de Embedder](http://code.google.com/apis/v8/embed.html) para explicação de vários conceitos usados como handles, scopes, function templates, etc.
 
-In order to use these examples you need to compile them using `node-gyp`.
-Create the following `binding.gyp` file:
+Para utilizar esses exemplos você precisa compila-los usando `node-gyp`. Crie o seguinte arquivo `binding.gyp`:
 
     {
       "targets": [
@@ -122,22 +117,18 @@ Create the following `binding.gyp` file:
       ]
     }
 
-In cases where there is more than one `.cc` file, simply add the file name to
-the `sources` array, e.g.:
+Em casos onde há mais de um arquivo `.cc` simplesmente adicione o nome do arquivo para o array `sources`. Exemplo:
 
     "sources": ["addon.cc", "myexample.cc"]
 
-Now that you have your `binding.gyp` ready, you can configure and build the
-addon:
+Agora que você tem o seu `binding.gyp` pronto, você pode configurar e compilar o addon:
 
     $ node-gyp configure build
 
 
-### Function arguments
+### Argumentos de Função
 
-The following pattern illustrates how to read arguments from JavaScript
-function calls and return a result. This is the main and only needed source
-`addon.cc`:
+O seguinte padrão ilustra como faz a leitura dos argumentos de chamada de função JavaScript (JavaScript function calls) e retornar um resultado. Essa é a principal fonte do `addon.cc`e também a unica necessária:
 
     // addon.cc
     #include <node.h>
@@ -172,7 +163,7 @@ function calls and return a result. This is the main and only needed source
 
     NODE_MODULE(addon, Init)
 
-You can test it with the following JavaScript snippet:
+Você pode testa-lo com o seguinte trecho JavaScript:
 
     // test.js
     var addon = require('./build/Release/addon');
