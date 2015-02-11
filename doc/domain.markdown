@@ -178,31 +178,42 @@ are added to it.
 * `error.domainThrown` A boolean indicating whether the error was
   thrown, emitted, or passed to a bound callback function.
 
-## Implicit Binding
+## Vinculamento Implícito (Implicit Binding)
 
 <!--type=misc-->
 
-If domains are in use, then all **new** EventEmitter objects (including
-Stream objects, requests, responses, etc.) will be implicitly bound to
-the active domain at the time of their creation.
+Se os domínios estiverem em uso, então todos os objetos `**new** EventEmitter` (incluindo objetos Stream, request, responses, etc.) serão implicitamente vinculados ao domínio ativo no momento da criação desses.
 
-Additionally, callbacks passed to lowlevel event loop requests (such as
+<!--If domains are in use, then all **new** EventEmitter objects (including
+Stream objects, requests, responses, etc.) will be implicitly bound to
+the active domain at the time of their creation.-->
+
+Adicionalmente, callbacks passados para requests do event loop em baixo nível (assim como fs.open, ou outros métodos interpretadores de callback) irão ser vinculados automaticamente ao domínio ativo. Se eles apresentarem algum erro (throw), o domínio poderá tratar o erro (catch). 
+
+<!--Additionally, callbacks passed to lowlevel event loop requests (such as
 to fs.open, or other callback-taking methods) will automatically be
 bound to the active domain.  If they throw, then the domain will catch
-the error.
+the error.-->
 
-In order to prevent excessive memory usage, Domain objects themselves
+Para previnir o uso excessivo de memória, objetos de domínio não são implicitamente adicionados como filhos do domínio ativo. Se eles fossem, seria muito fácil previnir os objetos de request e response de serem coletados pelo garbage collector devidamente.
+
+<!--In order to prevent excessive memory usage, Domain objects themselves
 are not implicitly added as children of the active domain.  If they
 were, then it would be too easy to prevent request and response objects
-from being properly garbage collected.
+from being properly garbage collected.-->
 
-If you *want* to nest Domain objects as children of a parent Domain,
-then you must explicitly add them.
+Se você *quer* aninhar objetos de domínios como filhos de um domínio pai, então você deve adicioná-los explicitamente.
 
-Implicit binding routes thrown errors and `'error'` events to the
+<!--If you *want* to nest Domain objects as children of a parent Domain,
+then you must explicitly add them.-->
+
+Vinculamentos implícitos de rotas geram erros e eventos de `'error'` para o evento de `'error'` do domínio, mas não são registrados no EventEmitter no domínio, então `domain.dispose()` não irá desligar o EventEmitter.
+Vinculamento implícito só toma conta de erros gerador e eventos de `'error'`.
+
+<!--Implicit binding routes thrown errors and `'error'` events to the
 Domain's `error` event, but does not register the EventEmitter on the
 Domain, so `domain.dispose()` will not shut down the EventEmitter.
-Implicit binding only takes care of thrown errors and `'error'` events.
+Implicit binding only takes care of thrown errors and `'error'` events.-->
 
 ## Explicit Binding
 
