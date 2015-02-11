@@ -76,7 +76,7 @@ Validação de erro customizada:
 
 ## assert.doesNotThrow(block[, message])
 
-Espera `bloco` para não lançar um erro , veja `assert.throws` para maior detalhes.
+Espera `block` para não lançar um erro , veja `assert.throws` para maior detalhes.
 
 ## assert.ifError(value)
 
