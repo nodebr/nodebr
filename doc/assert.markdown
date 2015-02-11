@@ -60,7 +60,7 @@ Validate error message using RegExp:
       /value/
     );
 
-Custom error validation:
+Validação de erro customizada:
 
     assert.throws(
       function() {
@@ -76,9 +76,9 @@ Custom error validation:
 
 ## assert.doesNotThrow(block[, message])
 
-Expects `block` not to throw an error, see `assert.throws` for details.
+Espera `bloco` para não lançar um erro , veja `assert.throws` para maior detalhes.
 
 ## assert.ifError(value)
 
-Tests if value is not a false value, throws if it is a true value. Useful when
-testing the first argument, `error` in callbacks.
+Testa se um valor não é um valor falso, lança erro se é verdadeiro. Útil quando
+estiver testando o primeiro argumento, `error` em callbacks.
