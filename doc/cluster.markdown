@@ -121,7 +121,7 @@ values are `"rr"` and `"none"`.
 ## cluster.settings
 
 * {Object}
-  * `execArgv` {Array} list of string arguments passed to the node executable. 
+  * `execArgv` {Array} list of string arguments passed to the node executable.
     (Default=`process.execArgv`)
   * `exec` {String} file path to worker file.  (Default=`process.argv[1]`)
   * `args` {Array} string arguments passed to worker.
@@ -324,41 +324,43 @@ This can only be called from the master process.
 
 * {Object}
 
-A reference to the current worker object. Not available in the master process.
+Uma referência para o objeto atual do worker. Não disponível no processo mestre.
 
     var cluster = require('cluster');
 
     if (cluster.isMaster) {
-      console.log('I am master');
+      console.log('Eu sou o mestre');
       cluster.fork();
       cluster.fork();
     } else if (cluster.isWorker) {
-      console.log('I am worker #' + cluster.worker.id);
+      console.log('Eu sou o worker #' + cluster.worker.id);
     }
 
 ## cluster.workers
 
 * {Object}
 
-A hash that stores the active worker objects, keyed by `id` field. Makes it
-easy to loop through all the workers. It is only available in the master
-process.
+Uma hash que armazena os objetos de workers ativos, chaveados pelo campo `id`.
+Facilita percorrer todos os workers. Está apenas disponível no processo
+mestre.
 
-A worker is removed from cluster.workers after the worker has disconnected _and_
-exited. The order between these two events cannot be determined in advance.
-However, it is guaranteed that the removal from the cluster.workers list happens
-before last `'disconnect'` or `'exit'` event is emitted.
+Uma worker é removido do cluster.workers depois que o worker foi desconectado _e_
+terminado. A ordem entre esses dois eventos não pode ser determinado previamente.
+Contudo, é garantido que a remoção do cluster.workers listado acontece antes do
+último evento `'disconnect'` ou `'exit'` emitido.
 
-    // Go through all workers
+    // Percorrer todos workers
     function eachWorker(callback) {
       for (var id in cluster.workers) {
         callback(cluster.workers[id]);
       }
     }
     eachWorker(function(worker) {
-      worker.send('big announcement to all workers');
+      worker.send('grande anúncio para todos os workers');
     });
 
+Caso queira referenciar um worker através de um canal de comunicação,
+o uso do id único do worker é a maneira mais fácil de encontrá-lo.
 Should you wish to reference a worker over a communication channel, using
 the worker's unique id is the easiest way to find the worker.
 
@@ -367,52 +369,52 @@ the worker's unique id is the easiest way to find the worker.
     });
 
 ## Class: Worker
-
-A Worker object contains all public information and method about a worker.
-In the master it can be obtained using `cluster.workers`. In a worker
-it can be obtained using `cluster.worker`.
+Um objeto Worker contêm toda informação pública e métodos sobre um worker.
+No mestre é possível obtê-lo usando o `cluster.workers`. No worker é possível
+obtê-lo usando o `cluster.worker`
 
 ### worker.id
 
 * {String}
 
-Each new worker is given its own unique id, this id is stored in the
-`id`.
-
-While a worker is alive, this is the key that indexes it in
-cluster.workers
+Um id único é atribuído para cada worker novo. Este id é armazenado em `id` e é
+a chave que o indéxa no cluster.workers enquanto o worker estiver vivo.
 
 ### worker.process
 
 * {ChildProcess object}
 
-All workers are created using `child_process.fork()`, the returned object
-from this function is stored as `.process`. In a worker, the global `process`
-is stored.
+Todos workers são criados usando `child_process.fork()`, o objeto retornado
+desta função é armazenado como `.process`. Em um worker, o `process` global é
+armazenado.
 
-See: [Child Process module](
+Veja: [Child Process module](
 child_process.html#child_process_child_process_fork_modulepath_args_options)
 
-Note that workers will call `process.exit(0)` if the `'disconnect'` event occurs
-on `process` and `.suicide` is not `true`. This protects against accidental
-disconnection.
+Note que um worker invocará o `process.exit(0)` se o evento `'disconnect'`
+ocorrer no `process` e `.suicide` não for verdadeira (`true`). Isto protege
+contra desconexões acidentais.
 
 ### worker.suicide
 
 * {Boolean}
 
-Set by calling `.kill()` or `.disconnect()`, until then it is `undefined`.
+Definido pela chamada de `.kill()` ou `.disconnect()`, até que seja indefinido
+(`undefined`).  
+
+O boleano `worker.suicide` permite você distiguir entre saída voluntária e
+acidental, o mestre pode escolher não recriar o worker baseado neste valor.
 
 The boolean `worker.suicide` lets you distinguish between voluntary and accidental
 exit, the master may choose not to respawn a worker based on this value.
 
     cluster.on('exit', function(worker, code, signal) {
       if (worker.suicide === true) {
-        console.log('Oh, it was just suicide\' – no need to worry').
+        console.log('Opa, foi apenas um suicídio.\' – relaxe').
       }
     });
 
-    // kill worker
+    // Mate o worker
     worker.kill();
 
 ### worker.send(message[, sendHandle])
@@ -420,17 +422,17 @@ exit, the master may choose not to respawn a worker based on this value.
 * `message` {Object}
 * `sendHandle` {Handle object}
 
-This function is equal to the send methods provided by
-`child_process.fork()`.  In the master you should use this function to
-send a message to a specific worker.
+Esta função é igual aos métodos de envio disponiveis no
+`child_process.fork()`. Você pode usar esta função no mestre para enviar
+uma mensagem para um worker específico.
 
-In a worker you can also use `process.send(message)`, it is the same function.
+No worker você pode também pode usar `process.send(message)`, é a mesma função.  
 
-This example will echo back all messages from the master:
+Este exemplo retornará todas as mensagens oriundas do master:
 
     if (cluster.isMaster) {
       var worker = cluster.fork();
-      worker.send('hi there');
+      worker.send('e ai');
 
     } else if (cluster.isWorker) {
       process.on('message', function(msg) {
@@ -442,6 +444,9 @@ This example will echo back all messages from the master:
 
 * `signal` {String} Name of the kill signal to send to the worker
   process.
+
+Esta função irá matar o worker. No master, ele faz isso desconectando o
+`worker.process`, e uma vez desconectado, matando com `signal`.
 
 This function will kill the worker. In the master, it does this by disconnecting
 the `worker.process`, and once disconnected, killing with `signal`. In the
