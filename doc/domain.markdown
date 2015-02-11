@@ -1,13 +1,13 @@
-# Domain
+# Domínio
 
-    Stability: 2 - Unstable
+    Estabilidate: 2 - Instável
 
-Domains provide a way to handle multiple different IO operations as a
-single group.  If any of the event emitters or callbacks registered to a
-domain emit an `error` event, or throw an error, then the domain object
-will be notified, rather than losing the context of the error in the
-`process.on('uncaughtException')` handler, or causing the program to
-exit immediately with an error code.
+
+Domínios oferecem uma maneira de gerenciar diferentes operações de IO como um
+único grupo. Se algum dos emissores de evento ou *callbacks* registrados
+em um domínio emitirem um evento `error` ou lançarem um erro, então o objeto de 
+domínio será notificado, ao invés de simplesmente haver perda do contexto do erro no manipulador do
+`process.on('uncaughtException')`, ou o enceramento imediato do programa com um código de erro. 
 
 ## Warning: Don't Ignore Errors!
 
