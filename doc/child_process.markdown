@@ -300,21 +300,21 @@ socket para um subprocesso "especial". Outros sockets irão para um processo "no
     var normal = require('child_process').fork('child.js', ['normal']);
     var special = require('child_process').fork('child.js', ['special']);
 
-    // Open up the server and send sockets to child
+    // Abre o servidor e envia o socket para o subprocesso
     var server = require('net').createServer();
     server.on('connection', function (socket) {
 
-      // if this is a VIP
+      // Se for um VIP
       if (socket.remoteAddress === '74.125.127.100') {
         special.send('socket', socket);
         return;
       }
-      // just the usual dudes
+      // apenas a forma de enviar de sempre
       normal.send('socket', socket);
     });
     server.listen(1337);
 
-The `child.js` could look like this:
+O `child.js` poderá se parecer com isto:
 
     process.on('message', function(m, socket) {
       if (m === 'socket') {
@@ -322,28 +322,28 @@ The `child.js` could look like this:
       }
     });
 
-Note that once a single socket has been sent to a child the parent can no
-longer keep track of when the socket is destroyed. To indicate this condition
-the `.connections` property becomes `null`.
-It is also recommended not to use `.maxConnections` in this condition.
+Observe que uma vez enviado um simples socket para o subprocesso, o processo principal não poderá mais
+manter o controlede quando o socket será destruído. Para indicar esta condição
+a propriedade `.connections` se torna `null`.
+Também não é recomendado a utilização de `.maxConnections` nesta condição.
 
 ### child.disconnect()
 
-Close the IPC channel between parent and child, allowing the child to exit
-gracefully once there are no other connections keeping it alive. After calling
-this method the `.connected` flag will be set to `false` in both the parent and
-child, and it is no longer possible to send messages.
+Fecha o canal IPC entre o processo e o subprocesso, permitindo o término correto do subprocesso
+uma vez que não há outra conexão para mantê-lo vivo. Após chamar este método
+a flag `.connected` será definida como `false` em ambos processo e
+subprocesso, e assim não será possível enviar mais mensagens.
 
-The 'disconnect' event will be emitted when there are no messages in the process
-of being received, most likely immediately.
+O evento 'disconnect' será emitido quando não houver mensagens no processo
+a ser recebida de imediato.
 
-Note that you can also call `process.disconnect()` in the child process when the
-child process has any open IPC channels with the parent (i.e `fork()`).
+Observe que você pode chamar `process.disconnect()` no subprocesso quando ele
+tiver algum canal IPC aberto com o processo principal (i.e `fork()`).
 
-## Asynchronous Process Creation
+## Criação de um processo assíncrono
 
-These methods follow the common async programming patterns (accepting a
-callback or returning an EventEmitter).
+Os seguintes métodos seguem os padrões de programação assíncrono (aceitando um
+callback ou retornando um EventEmitter).
 
 ### child_process.spawn(command[, args][, options])
 
