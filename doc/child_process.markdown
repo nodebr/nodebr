@@ -145,9 +145,9 @@ No seguinte exemplo, somente o fd `1` do subprocesso está configurado como um `
 
     child = child_process.spawn("ls", {
         stdio: [
-          0, // use parents stdin for child
-          'pipe', // pipe child's stdout to parent
-          fs.openSync("err.out", "w") // direct child's stderr to a file
+          0, // utiliza o stdin do processo principal para o subprocesso
+          'pipe', // conecta o stdout do subprocesso ao processo principal
+          fs.openSync("err.out", "w") // direciona o stderr do subprocesso para um arquivo
         ]
     });
 
@@ -194,31 +194,31 @@ enviará `'SIGTERM'`. Veja `signal(7)` para uma lista de sinais disponíveis.
       console.log('child process terminated due to receipt of signal '+signal);
     });
 
-    // send SIGHUP to process
+    // Envia SIGHUP para processar
     grep.kill('SIGHUP');
 
-May emit an `'error'` event when the signal cannot be delivered. Sending a
-signal to a child process that has already exited is not an error but may
-have unforeseen consequences: if the PID (the process ID) has been reassigned
-to another process, the signal will be delivered to that process instead.
-What happens next is anyone's guess.
+Pode emitir um evento `'error'` quando o sinal não pode ser entregue. Enviar um
+sinal para um subprocesso que já terminou não é um erro mas pode
+gerar consequências imprevistas: Se o PID (ID do Processo) foi reatribuído
+a outro processo, o sinal será entregue para este mesmo no lugar do pretendido.
+O que acontece depois ninguém sabe.
 
-Note that while the function is called `kill`, the signal delivered to the
-child process may not actually kill it.  `kill` really just sends a signal
-to a process.
+Observe que enquanto a função `kill` é chamada, o sinal enviado ao
+subprocesso pode não necessariamente finalizá-lo. `kill` apenas envia um sinal
+para o processo principal.
 
-See `kill(2)`
+Veja `kill(2)`
 
 ### child.send(message[, sendHandle])
 
-* `message` {Object}
-* `sendHandle` {Handle object}
+* `message` {Objeto}
+* `sendHandle` {Objeto Handle}
 
-When using `child_process.fork()` you can write to the child using
-`child.send(message, [sendHandle])` and messages are received by
-a `'message'` event on the child.
+Quando utilizado `child_process.fork()` você pode escrever no subprocesso usando
+`child.send(message, [sendHandle])` e as mensagens são recebidas pelo evento
+`'message'` no subprocesso.
 
-For example:
+Por exemplo:
 
     var cp = require('child_process');
 
@@ -230,7 +230,7 @@ For example:
 
     n.send({ hello: 'world' });
 
-And then the child script, `'sub.js'` might look like this:
+E então o script do subprocesso, `'sub.js'` deve se parecer com isto:
 
     process.on('message', function(m) {
       console.log('CHILD got message:', m);
@@ -238,30 +238,30 @@ And then the child script, `'sub.js'` might look like this:
 
     process.send({ foo: 'bar' });
 
-In the child the `process` object will have a `send()` method, and `process`
-will emit objects each time it receives a message on its channel.
+No subprocesso o objeto `process` terá um método `send()`, e `process`
+emitirá objetos cada vez que receber uma mensagem de seu canal.
 
-Please note that the `send()` method on both the parent and child are
-synchronous - sending large chunks of data is not advised (pipes can be used
-instead, see
+Observe que o método `send()` em ambos processos são
+síncronos - enviando grandes partes de dados sem avisar (`pipes` pode ser usado
+no lugar, veja
 [`child_process.spawn`](#child_process_child_process_spawn_command_args_options)).
 
-There is a special case when sending a `{cmd: 'NODE_foo'}` message. All messages
-containing a `NODE_` prefix in its `cmd` property will not be emitted in
-the `message` event, since they are internal messages used by node core.
-Messages containing the prefix are emitted in the `internalMessage` event, you
-should by all means avoid using this feature, it is subject to change without notice.
+Há um caso especial quando enviado uma mensagem `{cmd: 'NODE_foo'}`. Todas as mensagens
+contendo um prefixo `NODE_` em sua propriedade `cmd` não serão emitidas no evento
+`message`, devido ao fato de serem mensagens internas utilizadas pelo core do node.
+As mensagens que contém o prefixo são emitidas no evento `internalMessage`, você
+deve evitar a utilização deste recurso, pois está sujeito a mudança sem aviso prévio.
 
-The `sendHandle` option to `child.send()` is for sending a TCP server or
-socket object to another process. The child will receive the object as its
-second argument to the `message` event.
+A opção `sendHandle` para `child.send()` é para enviar um servidor TCP ou
+um objeto `socket` para outro processo. O subprocesso receberá o objeto como
+segundo argumento para o evento `message`.
 
-Emits an `'error'` event if the message cannot be sent, for example because
-the child process has already exited.
+Emite um evento `'error'` se a mensagem não puder ser enviada, por exemplo,
+caso o subprocesso já tenha terminado.
 
-#### Example: sending server object
+#### Exemplo: Enviando um objeto server
 
-Here is an example of sending a server:
+Aqui está um exemplo de envio de server:
 
     var child = require('child_process').fork('child.js');
 
@@ -274,7 +274,7 @@ Here is an example of sending a server:
       child.send('server', server);
     });
 
-And the child would the receive the server object as:
+E o subprocesso receberia o objeto server como:
 
     process.on('message', function(m, server) {
       if (m === 'server') {
@@ -284,18 +284,18 @@ And the child would the receive the server object as:
       }
     });
 
-Note that the server is now shared between the parent and child, this means
-that some connections will be handled by the parent and some by the child.
+Observe que o servidor agora está compartilhado entre o processo principal e o subprocesso, isto significa
+que algumas conexões serão gerenciadas pelo processo principal e outras pelo subprocesso.
 
-For `dgram` servers the workflow is exactly the same.  Here you listen on
-a `message` event instead of `connection` and use `server.bind` instead of
-`server.listen`.  (Currently only supported on UNIX platforms.)
+Para servidores `dgram` o fluxo é exatamente o mesmo. Aqui você ouve um evento
+`message` ao invés de `connection` e utiliza `server.bind` em vez de
+`server.listen`.  (Atualmente suportado apenas em plataformas UNIX)
 
-#### Example: sending socket object
+#### Exemplo: enviando objetos socket
 
-Here is an example of sending a socket. It will spawn two children and handle
-connections with the remote address `74.125.127.100` as VIP by sending the
-socket to a "special" child process. Other sockets will go to a "normal" process.
+Aqui está um exemplo de envio de socket. Será gerado dois subprocessos e gerenciadores
+de conexão com endereços remotos `74.125.127.100` como VIP ao enviar o
+socket para um subprocesso "especial". Outros sockets irão para um processo "normal".
 
     var normal = require('child_process').fork('child.js', ['normal']);
     var special = require('child_process').fork('child.js', ['special']);
