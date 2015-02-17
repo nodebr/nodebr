@@ -1,29 +1,29 @@
 # Zlib
 
-    Stability: 3 - Stable
+    Estabilidade: 3 - Estável
 
-You can access this module with:
+Você pode acessar este módulo com:
 
     var zlib = require('zlib');
 
-This provides bindings to Gzip/Gunzip, Deflate/Inflate, and
-DeflateRaw/InflateRaw classes.  Each class takes the same options, and
-is a readable/writable Stream.
+Este provê vinculações para as classes Gzip/Gunzip, Deflate/Inflate e
+DeflateRaw/InflateRaw. Cada classe recebe as mesmas opções, e
+são um Stream de leitura/escrita.
 
-## Examples
+## Exemplos
 
-Compressing or decompressing a file can be done by piping an
-fs.ReadStream into a zlib stream, then into an fs.WriteStream.
+Comprimir ou descomprimir um arquivo pode ser feito canalizando (piping)
+um fs.ReadStream dentro de um stream zlib, depois dentro de um fs.WriteStream.
 
     var gzip = zlib.createGzip();
     var fs = require('fs');
-    var inp = fs.createReadStream('input.txt');
-    var out = fs.createWriteStream('input.txt.gz');
+    var input = fs.createReadStream('input.txt');
+    var output = fs.createWriteStream('input.txt.gz');
 
-    inp.pipe(gzip).pipe(out);
+    input.pipe(gzip).pipe(output);
 
-Compressing or decompressing data in one step can be done by using
-the convenience methods.
+Comprimir ou descomprimir dados pode ser feito usando os
+convenientes métodos.
 
     var input = '.................................';
     zlib.deflate(input, function(err, buffer) {
@@ -39,19 +39,18 @@ the convenience methods.
       }
     });
 
-To use this module in an HTTP client or server, use the
+Para usar este módulo em um cliente ou servidor HTTP, use o
 [accept-encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3)
-on requests, and the
+nas requisições, e
 [content-encoding](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11)
-header on responses.
+no cabeçalho das respostas.
 
-**Note: these examples are drastically simplified to show
-the basic concept.**  Zlib encoding can be expensive, and the results
-ought to be cached.  See [Memory Usage Tuning](#zlib_memory_usage_tuning)
-below for more information on the speed/memory/compression
-tradeoffs involved in zlib usage.
+**Nota: Estes exemplos são drasticamente simplificados para mostrar o conceito básico.** Zlib encoding pode ser custoso, e os resultados
+devem ser cacheados. Veja antes [Otimização do Uso de Memória](#zlib_memory_usage_tuning)
+para mais informações envolvendo o uso da zlib a respeito de
+velocidade/memória/compressão.
 
-    // client request example
+    // exemplo de uma requisição do cliente
     var zlib = require('zlib');
     var http = require('http');
     var fs = require('fs');
@@ -63,7 +62,7 @@ tradeoffs involved in zlib usage.
       var output = fs.createWriteStream('izs.me_index.html');
 
       switch (response.headers['content-encoding']) {
-        // or, just use zlib.createUnzip() to handle both cases
+        // ou, apenas use zlib.createUnzip() para controlar ambos os casos
         case 'gzip':
           response.pipe(zlib.createGunzip()).pipe(output);
           break;
@@ -76,9 +75,9 @@ tradeoffs involved in zlib usage.
       }
     });
 
-    // server example
-    // Running a gzip operation on every request is quite expensive.
-    // It would be much more efficient to cache the compressed buffer.
+    // exemplo no servidor
+    // rodar uma operação de gzip em cada requisição é bastante custoso.
+    // seria muito mais eficiente cachear o buffer comprimido.
     var zlib = require('zlib');
     var http = require('http');
     var fs = require('fs');
@@ -89,8 +88,8 @@ tradeoffs involved in zlib usage.
         acceptEncoding = '';
       }
 
-      // Note: this is not a conformant accept-encoding parser.
-      // See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3
+      // Nota: Este não é um parser accept-encoding bem estabelecido.
+      // Veja http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.3
       if (acceptEncoding.match(/\bdeflate\b/)) {
         response.writeHead(200, { 'content-encoding': 'deflate' });
         raw.pipe(zlib.createDeflate()).pipe(response);
@@ -105,210 +104,207 @@ tradeoffs involved in zlib usage.
 
 ## zlib.createGzip([options])
 
-Returns a new [Gzip](#zlib_class_zlib_gzip) object with an
-[options](#zlib_options).
+Retorna um novo objeto [Gzip](#zlib_class_zlib_gzip) com
+[opções](#zlib_options).
 
 ## zlib.createGunzip([options])
 
-Returns a new [Gunzip](#zlib_class_zlib_gunzip) object with an
-[options](#zlib_options).
+Retorna um novo objeto [Gunzip](#zlib_class_zlib_gunzip) com
+[opções](#zlib_options).
 
 ## zlib.createDeflate([options])
 
-Returns a new [Deflate](#zlib_class_zlib_deflate) object with an
-[options](#zlib_options).
+Retorna um novo objeto [Deflate](#zlib_class_zlib_deflate) com
+[opções](#zlib_options).
 
 ## zlib.createInflate([options])
 
-Returns a new [Inflate](#zlib_class_zlib_inflate) object with an
-[options](#zlib_options).
+Retorna um novo objeto [Inflate](#zlib_class_zlib_inflate) com
+[opções](#zlib_options).
 
 ## zlib.createDeflateRaw([options])
 
-Returns a new [DeflateRaw](#zlib_class_zlib_deflateraw) object with an
-[options](#zlib_options).
+Retorna um novo objeto [DeflateRaw](#zlib_class_zlib_deflateraw) com
+[opções](#zlib_options).
 
 ## zlib.createInflateRaw([options])
 
-Returns a new [InflateRaw](#zlib_class_zlib_inflateraw) object with an
-[options](#zlib_options).
+Retorna um novo objeto [InflateRaw](#zlib_class_zlib_inflateraw) com
+[opções](#zlib_options).
 
 ## zlib.createUnzip([options])
 
-Returns a new [Unzip](#zlib_class_zlib_unzip) object with an
-[options](#zlib_options).
+Retorna um novo objeto [Unzip](#zlib_class_zlib_unzip) com
+[opções](#zlib_options).
 
+## Classe: zlib.Zlib
 
-## Class: zlib.Zlib
-
-Not exported by the `zlib` module. It is documented here because it is the base
-class of the compressor/decompressor classes.
+Não é exportado pelo módulo `zlib`. Está documentado aqui porque é a classe
+base das classes compressor/decompressor.
 
 ### zlib.flush([kind], callback)
 
-`kind` defaults to `zlib.Z_FULL_FLUSH`.
+`kind` é o padrão para `zlib.Z_FULL_FLUSH`.
 
-Flush pending data. Don't call this frivolously, premature flushes negatively
-impact the effectiveness of the compression algorithm.
+Descarga de dados pendentes. Não chame-a frivolamente, descargas prematura tem um impacto negativo no algorítimo de compressão.
 
 ### zlib.params(level, strategy, callback)
 
-Dynamically update the compression level and compression strategy.
-Only applicable to deflate algorithm.
+Dinamicamente atualiza o nível de compressão e a estratégia de compressão.
+Aplicável apenas para o algorítimo deflate.
 
 ### zlib.reset()
 
-Reset the compressor/decompressor to factory defaults. Only applicable to
-the inflate and deflate algorithms.
+Redefine os padrões de fábrica para compressão/descompressão. Aplicável
+apenas para os algorítimos inflate e deflate.
 
-## Class: zlib.Gzip
+## Classe: zlib.Gzip
 
-Compress data using gzip.
+Comprime dados usando gzip.
 
-## Class: zlib.Gunzip
+## Classe: zlib.Gunzip
 
-Decompress a gzip stream.
+Descomprime um stream gzip.
 
-## Class: zlib.Deflate
+## Classe: zlib.Deflate
 
-Compress data using deflate.
+Comprime dados usando deflate.
 
-## Class: zlib.Inflate
+## Classe: zlib.Inflate
 
-Decompress a deflate stream.
+Descomprime um stream deflate.
 
-## Class: zlib.DeflateRaw
+## Classe: zlib.DeflateRaw
 
-Compress data using deflate, and do not append a zlib header.
+Comprime dados usando deflate, e não anexa o cabeçalho zlib.
 
-## Class: zlib.InflateRaw
+## Classe: zlib.InflateRaw
 
-Decompress a raw deflate stream.
+Descomprime um stream deflate cru.
 
-## Class: zlib.Unzip
+## Classe: zlib.Unzip
 
-Decompress either a Gzip- or Deflate-compressed stream by auto-detecting
-the header.
+Descomprime tanto um stream Gzip quanto um stream Deflate comprimido
+por auto-detecção do cabeçalho.
 
-## Convenience Methods
+## Métodos convenientes
 
 <!--type=misc-->
 
-All of these take a string or buffer as the first argument, an optional second
-argument to supply options to the zlib classes and will call the supplied
-callback with `callback(error, result)`.
+Todos estes pegam uma string ou buffer como o primeiro argumento, e um
+segundo argumento opcional para fornecer opções para a classe zlib
+e um terceiro para chamar o callback com `callback(error, result)`.
 
-Every method has a `*Sync` counterpart, which accept the same arguments, but
-without a callback.
+Cada método tem um `*Sync` em contra partida, no qual aceita os mesmos argumentos, mas sem um callback.
 
 ## zlib.deflate(buf[, options], callback)
 ## zlib.deflateSync(buf[, options])
 
-Compress a string with Deflate.
+Comprime uma string com Deflate.
 
 ## zlib.deflateRaw(buf[, options], callback)
 ## zlib.deflateRawSync(buf[, options])
 
-Compress a string with DeflateRaw.
+Comprime uma string com DeflateRaw.
 
 ## zlib.gzip(buf[, options], callback)
 ## zlib.gzipSync(buf[, options])
 
-Compress a string with Gzip.
+Comprime uma string com Gzip.
 
 ## zlib.gunzip(buf[, options], callback)
 ## zlib.gunzipSync(buf[, options])
 
-Decompress a raw Buffer with Gunzip.
+Descomprime um Buffer cru com Gunzip.
 
 ## zlib.inflate(buf[, options], callback)
 ## zlib.inflateSync(buf[, options])
 
-Decompress a raw Buffer with Inflate.
+Descomprime um Buffer cru com Inflate.
 
 ## zlib.inflateRaw(buf[, options], callback)
 ## zlib.inflateRawSync(buf[, options])
 
-Decompress a raw Buffer with InflateRaw.
+Descomprime um Buffer cru com InflateRaw.
 
 ## zlib.unzip(buf[, options], callback)
 ## zlib.unzipSync(buf[, options])
 
-Decompress a raw Buffer with Unzip.
+Descomprime um Buffer cru com Unzip.
 
-## Options
+## Opções
 
 <!--type=misc-->
 
-Each class takes an options object.  All options are optional.
+Cada classe recebe um objeto options. Todos os atributos deste objeto
+são opcionais.
 
-Note that some options are only relevant when compressing, and are
-ignored by the decompression classes.
+Note que algumas opções são relevantes apenas para a classe de compressão e são ignoradas para a classe de descompressão.
 
-* flush (default: `zlib.Z_NO_FLUSH`)
-* chunkSize (default: 16*1024)
+* flush (padrão: `zlib.Z_NO_FLUSH`)
+* chunkSize (padrão: 16*1024)
 * windowBits
-* level (compression only)
-* memLevel (compression only)
-* strategy (compression only)
-* dictionary (deflate/inflate only, empty dictionary by default)
+* level (apenas compressão)
+* memLevel (apenas compressão)
+* strategy (apenas compressão)
+* dictionary (apenas deflate/inflate, dicionário vazio por padrão)
 
-See the description of `deflateInit2` and `inflateInit2` at
-<http://zlib.net/manual.html#Advanced> for more information on these.
+Veja a descrição de `deflateInit2` e `inflateInit2` em
+<http://zlib.net/manual.html#Advanced> para mais informações sobre isto.
 
-## Memory Usage Tuning
+## Otimização do Uso de Memória
 
 <!--type=misc-->
 
-From `zlib/zconf.h`, modified to node's usage:
+De `zlib/zconf.h`, modificada para uso no node:
 
-The memory requirements for deflate are (in bytes):
+Os requisitos de memória para deflate são (em bytes):
 
     (1 << (windowBits+2)) +  (1 << (memLevel+9))
 
-that is: 128K for windowBits=15  +  128K for memLevel = 8
-(default values) plus a few kilobytes for small objects.
+que é: 128K para windowBits=15  +  128K para memLevel = 8
+(valores padrões) mais alguns kilobytes para pequenos objetos.
 
-For example, if you want to reduce
-the default memory requirements from 256K to 128K, set the options to:
+Por exemplo, se você quer reduzir
+o requerimento padrão de memória de 256K para 128K, defina as opções para:
 
     { windowBits: 14, memLevel: 7 }
 
-Of course this will generally degrade compression (there's no free lunch).
+É claro que isto vai degradar a compressão genericamente
+(não há almoço grátis).
 
-The memory requirements for inflate are (in bytes)
+Os requisitos de memória para inflate são (em bytes)
 
     1 << windowBits
 
-that is, 32K for windowBits=15 (default value) plus a few kilobytes
-for small objects.
+que é, 32K para windowBits=15 (valor padrão) mais alguns kilobytes
+para pequenos objetos.
 
-This is in addition to a single internal output slab buffer of size
-`chunkSize`, which defaults to 16K.
+Isto é em adição para uma única saída interna teto do tamanho do buffer
+`chunkSize`, no qual o padrão é 16K.
 
-The speed of zlib compression is affected most dramatically by the
-`level` setting.  A higher level will result in better compression, but
-will take longer to complete.  A lower level will result in less
-compression, but will be much faster.
+A velocidade de compressão da zlib é mais drasticamente afetada pela configuração de `level`. Um alto `level` vai resultar em uma compressão
+melhor, mas vai demorar mais para ser completada.
+Um baixo `level` vai resultar em uma menor compressão, mas será mais rápida.
 
-In general, greater memory usage options will mean that node has to make
-fewer calls to zlib, since it'll be able to process more data in a
-single `write` operation.  So, this is another factor that affects the
-speed, at the cost of memory usage.
+No geral, mais opções de uso de memória significará que o node terá que
+fazer menos chamadas para zlib, uma vez que ele vai ser capaz de processar
+mais dados em uma unica operação de `escrita`. Assim, este é outro fator que
+afeta a velocidade no custo do uso de memória.
 
-## Constants
+## Constantes
 
 <!--type=misc-->
 
-All of the constants defined in zlib.h are also defined on
+Todas essas constantes definidas em zlib.h também são definidas em
 `require('zlib')`.
-In the normal course of operations, you will not need to ever set any of
-these.  They are documented here so that their presence is not
-surprising.  This section is taken almost directly from the [zlib
-documentation](http://zlib.net/manual.html#Constants).  See
-<http://zlib.net/manual.html#Constants> for more details.
+Em um curso normal de operação, você não precisará definir qualquer
+uma delas. Elas estão documentadas aqui então a sua presença não são
+surpreendente. Esta seção foi tirada quase diretamente de
+[zlib documentation](http://zlib.net/manual.html#Constants). Veja
+<http://zlib.net/manual.html#Constants> para mais detalhes.
 
-Allowed flush values.
+Permite valores para flush.
 
 * `zlib.Z_NO_FLUSH`
 * `zlib.Z_PARTIAL_FLUSH`
@@ -318,9 +314,9 @@ Allowed flush values.
 * `zlib.Z_BLOCK`
 * `zlib.Z_TREES`
 
-Return codes for the compression/decompression functions. Negative
-values are errors, positive values are used for special but normal
-events.
+Retorna códigos para funções de compressão/descompressão. Valores negativos
+são erros, valores positivos são usados para eventos normais e também
+especiais.
 
 * `zlib.Z_OK`
 * `zlib.Z_STREAM_END`
@@ -332,14 +328,14 @@ events.
 * `zlib.Z_BUF_ERROR`
 * `zlib.Z_VERSION_ERROR`
 
-Compression levels.
+Níveis de compressão.
 
 * `zlib.Z_NO_COMPRESSION`
 * `zlib.Z_BEST_SPEED`
 * `zlib.Z_BEST_COMPRESSION`
 * `zlib.Z_DEFAULT_COMPRESSION`
 
-Compression strategy.
+Estrategia de compressão.
 
 * `zlib.Z_FILTERED`
 * `zlib.Z_HUFFMAN_ONLY`
@@ -347,17 +343,17 @@ Compression strategy.
 * `zlib.Z_FIXED`
 * `zlib.Z_DEFAULT_STRATEGY`
 
-Possible values of the data_type field.
+Valores possíveis do campo data_type.
 
 * `zlib.Z_BINARY`
 * `zlib.Z_TEXT`
 * `zlib.Z_ASCII`
 * `zlib.Z_UNKNOWN`
 
-The deflate compression method (the only one supported in this version).
+O método de compressão deflate (o único suportado nessa versão).
 
 * `zlib.Z_DEFLATED`
 
-For initializing zalloc, zfree, opaque.
+Para inicialização de zalloc, zfree e opaque.
 
 * `zlib.Z_NULL`
