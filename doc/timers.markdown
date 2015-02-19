@@ -2,63 +2,63 @@
 
     Estabilidade: 5 - Fechado
 
-All of the timer functions are globals.  You do not need to `require()`
-this module in order to use them.
+Todas as funções do timer são globais. Você não necessita requisitar (`require()`)
+este módulo para usá-lo.
 
 ## setTimeout(callback, delay[, arg][, ...])
 
-To schedule execution of a one-time `callback` after `delay` milliseconds. Returns a
-`timeoutObject` for possible use with `clearTimeout()`. Optionally you can
-also pass arguments to the callback.
+Para agendar a execução somente uma vez de uma função ('callback') depois de um atraso (`delay`) em milisegundos. Retorna um
+objeto `timeoutObject` para possível uso com a função `clearTimeout()`. Opcionalmente você pode
+também passar argumentos para o callback.
 
-It is important to note that your callback will probably not be called in exactly
-`delay` milliseconds - Node.js makes no guarantees about the exact timing of when
-the callback will fire, nor of the ordering things will fire in. The callback will
-be called as close as possible to the time specified.
+É importante notar que o seu callback provavelmente não será chamado em exatamente
+`delay` milisegundos - Node.js não garante o tempo exato quando o
+callback será disparado, nem a ordenação das coisas disparadas dentro dele.
+O callback será chamado o mais próximo possível do tempo indicado.
 
 ## clearTimeout(timeoutObject)
 
-Prevents a timeout from triggering.
+Previne o disparo de um timeout.
 
 ## setInterval(callback, delay[, arg][, ...])
 
-To schedule the repeated execution of `callback` every `delay` milliseconds.
-Returns a `intervalObject` for possible use with `clearInterval()`. Optionally
-you can also pass arguments to the callback.
+Para agendar a execução repetida de um callback a cada atraso (`delay`) em milisegundos.
+Retorna um objeto (`intervalObject`) para possível uso com a função (`clearInterval()`).
+Opcionalmente você pode passar argumentos para o callback.
 
 ## clearInterval(intervalObject)
 
-Stops an interval from triggering.
+Interrompe o disparo de um intervalo. 
 
 ## unref()
 
-The opaque value returned by `setTimeout` and `setInterval` also has the method
-`timer.unref()` which will allow you to create a timer that is active but if
-it is the only item left in the event loop won't keep the program running.
-If the timer is already `unref`d calling `unref` again will have no effect.
+O valor retornado por 'setTimeout' e 'setInterval' também tem o método 'timer.unref()'
+o qual possibilita a criação de um timer ativo mas que se for o único item restante no
+evento de loop não irá manter o programa executando.
+Se o timer já está como 'unref', chamar 'unref' novamente não terá efeito.
 
-In the case of `setTimeout` when you `unref` you create a separate timer that
-will wakeup the event loop, creating too many of these may adversely effect
-event loop performance -- use wisely.
+No caso de 'setTimeout', quando você chama 'unref' é criado um timer separado que
+irá despertar o evento de loop. Criar muitos destes pode gerar um efeito não desejado
+no desempenho do evento de loop -- use com sabedoria.
 
 ## ref()
 
-If you had previously `unref()`d a timer you can call `ref()` to explicitly
-request the timer hold the program open. If the timer is already `ref`d calling
-`ref` again will have no effect.
+Se você já chamou 'unref()' para um timer, você pode chamar 'ref()' para explicitamente
+requisitar que o timer mantenha o programa aberto. Se o timer já está como 'ref', chamar 'ref'
+novamente não terá efeito.
 
 ## setImmediate(callback[, arg][, ...])
 
-To schedule the "immediate" execution of `callback` after I/O events
-callbacks and before `setTimeout` and `setInterval` . Returns an
-`immediateObject` for possible use with `clearImmediate()`. Optionally you
-can also pass arguments to the callback.
+Para agendar um execução imediata do callback depois de callbacks de I/O
+e antes das funções 'setTimeout' e 'setInterval'. Retorna um objeto
+'immediateObject' para possível uso com a função 'clearImmediate()'.
+Opcionalmente você pode passar argumentos para o callback.
 
-Callbacks for immediates are queued in the order in which they were created.
-The entire callback queue is processed every event loop iteration. If you queue
-an immediate from inside an executing callback, that immediate won't fire
-until the next event loop iteration.
+Callbacks para execuções imediatas são enfileirados na ordem em que foram criados.
+A fila inteira de callbacks é processada em cada iteração do loop de eventos.
+Se você enfileirar uma execução imediata de dentro de um callback que está executando, aquela execução
+não irá disparar até a próxima iteração do loop de eventos.
 
 ## clearImmediate(immediateObject)
 
-Stops an immediate from triggering.
+Interrompe o disparo de uma execução imediata.
