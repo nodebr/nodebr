@@ -18,7 +18,7 @@ Para fins de script você deve achar
 [synchronous counterparts](#child_process_synchronous_process_creation) mais
 conveniente.
 
-## Class: ChildProcess
+## Classe: ChildProcess
 
 `ChildProcess` é um [EventEmitter][].
 
@@ -31,7 +31,7 @@ A classe `ChildProcess` não é destinada a ser usada diretamente.  Use os méto
 `spawn()`, `exec()`, `execFile()`, ou `fork()` para criar uma instância de
 `ChildProcess`.
 
-### Event:  'error'
+### Evento:  'error'
 
 * `err` {Objeto de erro} o erro.
 
@@ -48,7 +48,7 @@ a função não será chamada duas vezes.
 Veja também [`ChildProcess#kill()`](#child_process_child_kill_signal) e
 [`ChildProcess#send()`](#child_process_child_send_message_sendhandle).
 
-### Event:  'exit'
+### Evento:  'exit'
 
 * `code` {Número} o código de saída, Se saiu normalmente.
 * `signal` {String} o sinal é passado para finalizar o subprocesso, Se ele
@@ -66,7 +66,7 @@ então ele não terminará devido a recepção de um daqueles sinais, ele sairá
 
 Veja `waitpid(2)`.
 
-### Event: 'close'
+### Evento: 'close'
 
 * `code` {Número} o número de saída, se sair normalmente.
 * `signal` {String} o sinal é passado para finalizar o subprocesso, Se ele
@@ -76,13 +76,13 @@ Este evento é emitido quando as `streams` `stdio` de um subprocesso tem tudo
 terminado. Isto é diferente de 'exit', desde que os processo múltiplos
 compartilhem os mesmos `streams` `stdio`.
 
-### Event: 'disconnect'
+### Evento: 'disconnect'
 
 Este evento é emitido após chamar o método `.disconnect()` no processo principal
 ou no subprocesso. Após desconectar não será mais possível enviar mensagens,
 e a propriedade `.connected` será false.
 
-### Event: 'message'
+### Evento: 'message'
 
 * `message` {Objeto} Um objeto JSON analisado ou um valor primitivo
 * `sendHandle` {Objeto Handle} um Socket ou um objeto Server
