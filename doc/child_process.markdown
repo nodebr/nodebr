@@ -548,7 +548,7 @@ Veja também: `child_process.exec()` e `child_process.fork()`
   * `stderr` {Buffer}
 * Return: Objeto ChildProcess
 
-Roda um comando em um shell e coloca a saída em buffers.
+Executa um comando em um shell e coloca a saída em buffers.
 
     var exec = require('child_process').exec,
         child;
