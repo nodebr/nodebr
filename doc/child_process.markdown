@@ -347,37 +347,37 @@ callback ou retornando um EventEmitter).
 
 ### child_process.spawn(command[, args][, options])
 
-* `command` {String} The command to run
-* `args` {Array} List of string arguments
+* `command` {String} O comando a ser executado
+* `args` {Array} Lista de argumentos
 * `options` {Object}
-  * `cwd` {String} Current working directory of the child process
-  * `env` {Object} Environment key-value pairs
-  * `stdio` {Array|String} Child's stdio configuration. (See
-    [below](#child_process_options_stdio))
-  * `customFds` {Array} **Deprecated** File descriptors for the child to use
-    for stdio.  (See [below](#child_process_options_customFds))
-  * `detached` {Boolean} The child will be a process group leader.  (See
-    [below](#child_process_options_detached))
-  * `uid` {Number} Sets the user identity of the process. (See setuid(2).)
-  * `gid` {Number} Sets the group identity of the process. (See setgid(2).)
-* return: {ChildProcess object}
+  * `cwd` {String} Diretorio de trabalho atual do subprocesso
+  * `env` {Object} Ambiente de pares chave-valor
+  * `stdio` {Array|String} configuração stdio do subprocesso. (Veja
+    [abaixo](#child_process_options_stdio))
+  * `customFds` {Array} **Descontinuado** Descritor de arquivos para o subprocesso utilizar
+     stdio.  (Veja [abaixo](#child_process_options_customFds))
+  * `detached` {Boolean} O subprocesso se tornará um processo líder de grupo.  (Veja
+    [abaixo](#child_process_options_detached))
+  * `uid` {Number} Define a identidade do usuário do processo. (Veja setuid(2).)
+  * `gid` {Number} Define a identidade do grupo do processo. (Veja setgid(2).)
+* retorna: {ChildProcess object}
 
-Launches a new process with the given `command`, with  command line arguments in `args`.
-If omitted, `args` defaults to an empty Array.
+Começa um novo processo com o dado comando, com argumentos da linha de comandos em `args`.
+Se omitido, `args` é definido por padrão com um vetor vazio.
 
-The third argument is used to specify additional options, with these defaults:
+O terceiro argumento é usado para opções adicionais, com estes padrões:
 
     { cwd: undefined,
       env: process.env
     }
 
-Use `cwd` to specify the working directory from which the process is spawned.
-If not given, the default is to inherit the current working directory.
+Utilize `cwd` para especificar o diretório de trabalho do qual o processo é gerado.
+Se não passado, o padrão é utilizar o diretório de trabalho atual.
 
-Use `env` to specify environment variables that will be visible to the new
-process, the default is `process.env`.
+Use `env` para especificar as variáveis de ambiente que serão visíveis para o novo
+processo,o padrão é `process.env`.
 
-Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the exit code:
+Exemplo de execução `ls -lh /usr`, capturando `stdout`, `stderr`, e o código de saída:
 
     var spawn = require('child_process').spawn,
         ls    = spawn('ls', ['-lh', '/usr']);
@@ -395,7 +395,7 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the exit cod
     });
 
 
-Example: A very elaborate way to run 'ps ax | grep ssh'
+Exemplo: Um modo elaborado de executar 'ps ax | grep ssh'
 
     var spawn = require('child_process').spawn,
         ps    = spawn('ps', ['ax']),
@@ -433,70 +433,70 @@ Example: A very elaborate way to run 'ps ax | grep ssh'
 
 ### options.stdio
 
-As a shorthand, the `stdio` argument may also be one of the following
+Como uma abreviação, o argumento `stdio` pode também ser uma das seguintes
 strings:
 
-* `'pipe'` - `['pipe', 'pipe', 'pipe']`, this is the default value
+* `'pipe'` - `['pipe', 'pipe', 'pipe']`, este é o valor padrão
 * `'ignore'` - `['ignore', 'ignore', 'ignore']`
-* `'inherit'` - `[process.stdin, process.stdout, process.stderr]` or `[0,1,2]`
+* `'inherit'` - `[process.stdin, process.stdout, process.stderr]` ou `[0,1,2]`
 
-Otherwise, the 'stdio' option to `child_process.spawn()` is an array where each
-index corresponds to a fd in the child.  The value is one of the following:
+Por outro lado, a opção 'stdio' para `child_process.spawn()` é um vetor onde cada
+index corresponde ao fd no subprocesso.  O valor é um dos seguintes:
 
-1. `'pipe'` - Create a pipe between the child process and the parent process.
-   The parent end of the pipe is exposed to the parent as a property on the
-   `child_process` object as `ChildProcess.stdio[fd]`. Pipes created for
-   fds 0 - 2 are also available as ChildProcess.stdin, ChildProcess.stdout
-   and ChildProcess.stderr, respectively.
-2. `'ipc'` - Create an IPC channel for passing messages/file descriptors
-   between parent and child. A ChildProcess may have at most *one* IPC stdio
-   file descriptor. Setting this option enables the ChildProcess.send() method.
-   If the child writes JSON messages to this file descriptor, then this will
-   trigger ChildProcess.on('message').  If the child is a Node.js program, then
-   the presence of an IPC channel will enable process.send() and
+1. `'pipe'` - Cria um pipe entre o subprocesso e o processo principal.
+   O final do pipe do processo principal está disponível para o mesmo como uma propriedade no
+    objeto `child_process` como `ChildProcess.stdio[fd]`. Pipes criados para
+   fds 0 - 2 também estão disponíveis como ChildProcess.stdin, ChildProcess.stdout
+   e ChildProcess.stderr, respectivamente.
+2. `'ipc'` - Cria um canal IPC para passar mensagens/descritores de arquivos
+   entre o subprocesso e o processo. Um ChildProcess pode ter no máximo *um* descritor de arquivo 
+   IPC stdio. Definir esta opção habilita o método ChildProcess.send().
+   Se o subprocesso escreve mensagens JSON neste descritor de arquivo, então este irá
+   engatilhar ChildProcess.on('message').  Se osubprocesso é um programa Node.js, então
+   a presença do canal IPC habilitará process.send() e
    process.on('message').
-3. `'ignore'` - Do not set this file descriptor in the child. Note that Node
-   will always open fd 0 - 2 for the processes it spawns. When any of these is
-   ignored node will open `/dev/null` and attach it to the child's fd.
-4. `Stream` object - Share a readable or writable stream that refers to a tty,
-   file, socket, or a pipe with the child process. The stream's underlying
-   file descriptor is duplicated in the child process to the fd that
-   corresponds to the index in the `stdio` array. Note that the stream must
-   have an underlying descriptor (file streams do not until the `'open'`
-   event has occurred).
-5. Positive integer - The integer value is interpreted as a file descriptor
-   that is is currently open in the parent process. It is shared with the child
-   process, similar to how `Stream` objects can be shared.
-6. `null`, `undefined` - Use default value. For stdio fds 0, 1 and 2 (in other
-   words, stdin, stdout, and stderr) a pipe is created. For fd 3 and up, the
-   default is `'ignore'`.
+3. `'ignore'` - Não Defina este descritor de arquivos no subprocesso. Observe que o Node
+   sempre abrirá fd 0 - 2 para os processos girados. Quando algum destes é
+   ignorado o node abrirá `/dev/null` e irá anexar ao fd do subprocesso.
+4. Objeto `Stream` - Compartilha uma stream legível ou gravável referente ao tty,
+   arquivo, socket, ou um pipe com subprocesso. Os descritores de arquivo subjacentes das streams
+   é duplicada no subprocesso para o fd que
+   corresponde ao índice no vetor `stdio`. Observe que o stream deve
+   ter um descritor subjacente (Nada é feito até que o evento `'open'`
+   ocorra).
+5. Inteiro positivo - O valor inteiro é interpretado como um descritor de arquivo
+   que é constantemente aberto no processo principal. É compartilhado com o subprocesso, 
+   similar a forma que objetos `Stream` podem ser compartilhados.
+6. `null`, `undefined` - Utiliza valor padrão. Para stdio fds 0, 1 e 2 (em outras
+   palavras, stdin, stdout, e stderr) um pipe é criado. Para o fd 3 e acima, o
+   padrão é `'ignore'`.
 
-Example:
+Exemplo:
 
     var spawn = require('child_process').spawn;
 
-    // Child will use parent's stdios
+    // subprocesso utilizará stdio do processo principal
     spawn('prg', [], { stdio: 'inherit' });
 
-    // Spawn child sharing only stderr
+    // Gera um subprocesso compartilhando somente stderr
     spawn('prg', [], { stdio: ['pipe', 'pipe', process.stderr] });
 
-    // Open an extra fd=4, to interact with programs present a
-    // startd-style interface.
+    // Abre um extra fd=4, para interagir com programas que apresentam uma
+    // interface startd-style.
     spawn('prg', [], { stdio: ['pipe', null, null, null, 'pipe'] });
 
 ### options.detached
 
-If the `detached` option is set, the child process will be made the leader of a
-new process group.  This makes it possible for the child to continue running
-after the parent exits.
+Se a opção `detached` é definida, o subprocesso se tornará o líder de um
+novo grupo de processos.  Isto torna possível o subprocesso continuar executando
+após o processo principal finalizar.
 
-By default, the parent will wait for the detached child to exit.  To prevent
-the parent from waiting for a given `child`, use the `child.unref()` method,
-and the parent's event loop will not include the child in its reference count.
+Por padrão, o processo principal aguardará o subprocesso desanexado finalizar. Para previnir
+o processo principal de aguardar um dado subprocesso, de utilizar o método `child.unref()`,
+e os eventos loop do processo principal não incluirá o subprocesso em seu contador de referências.
 
-Example of detaching a long-running process and redirecting its output to a
-file:
+Exemplo de desanexo de um processo longo e redirecionamento da sua saída para um
+arquivo:
 
      var fs = require('fs'),
          spawn = require('child_process').spawn,
@@ -510,45 +510,45 @@ file:
 
      child.unref();
 
-When using the `detached` option to start a long-running process, the process
-will not stay running in the background unless it is provided with a `stdio`
-configuration that is not connected to the parent.  If the parent's `stdio` is
-inherited, the child will remain attached to the controlling terminal.
+Quando se utiliza a opção `detached` para começar um processo de duração longa, o processo
+não ficará rodando em background a menos que seja fornecido com uma configuração `stdio`
+que não está conectada ao processo principal. Se o `stdio` do processo principal for
+herdado, o subprocesso permanecerá anexado ao terminal de controle.
 
 ### options.customFds
 
-There is a deprecated option called `customFds` which allows one to specify
-specific file descriptors for the stdio of the child process. This API was
-not portable to all platforms and therefore removed.
-With `customFds` it was possible to hook up the new process' `[stdin, stdout,
-stderr]` to existing streams; `-1` meant that a new stream should be created.
-Use at your own risk.
+Há uma opção descontinuada chamada `customFds` que permite especificar
+arquivos descritores para o stdio do subprocesso. Esta API não era
+portável para todas as plataformas e por isso foi removida.
+Com `customFds` é possível atrelar a um novo processo' `[stdin, stdout,
+stderr]` para existência de streams; `-1` significa que uma nova stream deverá ser criada.
+Use por sua conta e risco.
 
-See also: `child_process.exec()` and `child_process.fork()`
+Veja também: `child_process.exec()` e `child_process.fork()`
 
 ### child_process.exec(command[, options], callback)
 
-* `command` {String} The command to run, with space-separated arguments
+* `command` {String} O comando para executar, com argumentos separados por espaços
 * `options` {Object}
-  * `cwd` {String} Current working directory of the child process
-  * `env` {Object} Environment key-value pairs
+  * `cwd` {String} Diretório de trabalho atual do subprocesso
+  * `env` {Object} Ambiente de pares chave-valor
   * `encoding` {String} (Default: 'utf8')
-  * `shell` {String} Shell to execute the command with
-    (Default: '/bin/sh' on UNIX, 'cmd.exe' on Windows,  The shell should
-     understand the `-c` switch on UNIX or `/s /c` on Windows. On Windows,
-     command line parsing should be compatible with `cmd.exe`.)
+  * `shell` {String} Shell para executar o comando com
+    (Padrão: '/bin/sh' no UNIX, 'cmd.exe' no Windows,  O shell deverá
+     entender o `-c` troca no UNIX ou `/s /c` por Windows. No Windows,
+     o interpretador da linha de comando deverá ser compatível com `cmd.exe`.)
   * `timeout` {Number} (Default: 0)
   * `maxBuffer` {Number} (Default: `200*1024`)
   * `killSignal` {String} (Default: 'SIGTERM')
-  * `uid` {Number} Sets the user identity of the process. (See setuid(2).)
-  * `gid` {Number} Sets the group identity of the process. (See setgid(2).)
-* `callback` {Function} called with the output when process terminates
+  * `uid` {Number} Define a identidade do usuário do processo. (Veja setuid(2).)
+  * `gid` {Number} Define a identidade do grupo do processo. (See setgid(2).)
+* `callback` {Function} Chamado com a saída quando o processo termina
   * `error` {Error}
   * `stdout` {Buffer}
   * `stderr` {Buffer}
-* Return: ChildProcess object
+* Return: Objeto ChildProcess
 
-Runs a command in a shell and buffers the output.
+Roda um comando em um shell e coloca a saída em buffers.
 
     var exec = require('child_process').exec,
         child;
@@ -562,13 +562,13 @@ Runs a command in a shell and buffers the output.
         }
     });
 
-The callback gets the arguments `(error, stdout, stderr)`. On success, `error`
-will be `null`.  On error, `error` will be an instance of `Error` and `error.code`
-will be the exit code of the child process, and `error.signal` will be set to the
-signal that terminated the process.
+O callback pega os argumentos `(error, stdout, stderr)`. Quando for sucesso, `error`
+será `null`.  Quando for erro, `error` será uma instância de `Error` e `error.code`
+será o código de saída do subprocesso, e `error.signal` será definido para o 
+sinal que terminará o processo.
 
-There is a second optional argument to specify several options. The
-default options are
+Há um segundo argumento opcional para especificar muitas opções. As
+opções padrão são
 
     { encoding: 'utf8',
       timeout: 0,
@@ -577,168 +577,168 @@ default options are
       cwd: null,
       env: null }
 
-If `timeout` is greater than 0, then it will kill the child process
-if it runs longer than `timeout` milliseconds. The child process is killed with
-`killSignal` (default: `'SIGTERM'`). `maxBuffer` specifies the largest
-amount of data allowed on stdout or stderr - if this value is exceeded then
-the child process is killed.
+Se `timeout` é maior que 0, então finalizará o subprocesso
+Se a execução for maior que os milisegundos do `timeout`. O subprocesso é finalizado com
+`killSignal` (padrão: `'SIGTERM'`). `maxBuffer` especifica a maior
+quantidade de dados permitidos em stdout ou stderr - Se este valor for excedido então
+o subprocesso é finalizado.
 
 
 ### child_process.execFile(file[, args][, options][, callback])
 
-* `file` {String} The filename of the program to run
-* `args` {Array} List of string arguments
+* `file` {String} O nome do arquivo do programa a executar
+* `args` {Array} Lista de argumentos string
 * `options` {Object}
-  * `cwd` {String} Current working directory of the child process
-  * `env` {Object} Environment key-value pairs
-  * `encoding` {String} (Default: 'utf8')
-  * `timeout` {Number} (Default: 0)
-  * `maxBuffer` {Number} (Default: 200\*1024)
-  * `killSignal` {String} (Default: 'SIGTERM')
-  * `uid` {Number} Sets the user identity of the process. (See setuid(2).)
-  * `gid` {Number} Sets the group identity of the process. (See setgid(2).)
-* `callback` {Function} called with the output when process terminates
+  * `cwd` {String} Diretório de trabalho atual do subprocesso
+  * `env` {Object} Ambiente de pares chave-valor
+  * `encoding` {String} (Padrão: 'utf8')
+  * `timeout` {Number} (Padrão: 0)
+  * `maxBuffer` {Number} (Padrão: 200\*1024)
+  * `killSignal` {String} (Padrão: 'SIGTERM')
+  * `uid` {Number} Define a identidade do usuário do processo. (Veja setuid(2).)
+  * `gid` {Number} Define a identidade do grupo do processo. (Veja setgid(2).)
+* `callback` {Function} chamada com a saída quando o processo termina
   * `error` {Error}
   * `stdout` {Buffer}
   * `stderr` {Buffer}
-* Return: ChildProcess object
+* Return: Objeto ChildProcess
 
-This is similar to `child_process.exec()` except it does not execute a
-subshell but rather the specified file directly. This makes it slightly
-leaner than `child_process.exec`. It has the same options.
+Isto é similar ao `child_process.exec()` só que que não executa um
+subshell, especifica um arquivo diretamente. Isto torna um pouco mais 
+leve que `child_process.exec`. Tem as mesmas opções.
 
 
 ### child_process.fork(modulePath[, args][, options])
 
-* `modulePath` {String} The module to run in the child
-* `args` {Array} List of string arguments
+* `modulePath` {String} O módulo a ser executado no subprocesso
+* `args` {Array} Lista deargumentos string
 * `options` {Object}
-  * `cwd` {String} Current working directory of the child process
-  * `env` {Object} Environment key-value pairs
-  * `execPath` {String} Executable used to create the child process
-  * `execArgv` {Array} List of string arguments passed to the executable
-    (Default: `process.execArgv`)
-  * `silent` {Boolean} If true, stdin, stdout, and stderr of the child will be
-    piped to the parent, otherwise they will be inherited from the parent, see
-    the "pipe" and "inherit" options for `spawn()`'s `stdio` for more details
-    (default is false)
-  * `uid` {Number} Sets the user identity of the process. (See setuid(2).)
-  * `gid` {Number} Sets the group identity of the process. (See setgid(2).)
-* Return: ChildProcess object
+  * `cwd` {String} Diretório de trabalho atual do subprocesso
+  * `env` {Object} Ambiente de pares chave-valor
+  * `execPath` {String} Executável utilizado para criar o subprocesso
+  * `execArgv` {Array} Lista de argumentos string passado para o executável
+    (Padrão: `process.execArgv`)
+  * `silent` {Boolean} Se verdadeiro, stdin, stdout, e stderr do subprocesso serão
+    ligados ao processo principal, caso contrário o subprocesso herdará do processo principal, Veja
+    o "pipe" e "inherit" opções para `spawn()`'s `stdio` para mais detalhes
+    (o padrão é falso)
+  * `uid` {Number} Define a identidade do usuário do processo. (Veja setuid(2).)
+  * `gid` {Number} Define a identidade do grupo do processo. (Veja setgid(2).)
+* Return: Objeto ChildProcess
 
-This is a special case of the `spawn()` functionality for spawning Node
-processes. In addition to having all the methods in a normal ChildProcess
-instance, the returned object has a communication channel built-in. See
-`child.send(message, [sendHandle])` for details.
+Este é um caso especial de `spawn()` funcionalidade para gerar processos
+Node. Além de ter todos os métodos em uma instância de um subprocesso
+normal, o objeto retornado tem um canal de comunicaçãothe returned object has a communication channel embutido. Veja
+`child.send(message, [sendHandle])` para detalhes.
 
-These child Nodes are still whole new instances of V8. Assume at least 30ms
-startup and 10mb memory for each new Node. That is, you cannot create many
-thousands of them.
+Estes subnós ainda são novas instâncias do v8. Assuma no mínimo 30ms
+para começar e 10mb de memória para cada novo nó. Isto é, vocÊ não pode criar milhares
+deles.
 
-The `execPath` property in the `options` object allows for a process to be
-created for the child rather than the current `node` executable. This should be
-done with care and by default will talk over the fd represented an
-environmental variable `NODE_CHANNEL_FD` on the child process. The input and
-output on this fd is expected to be line delimited JSON objects.
+A propriedade `execPath` no objeto `options` permite um processo ser
+criado por um subprocesso ao invés do nó executável atual. Isto deve ser
+feito com cuidado e por padrão se comunicarão com o fd representando uma
+variável de ambiente `NODE_CHANNEL_FD` no subprocesso. A entrada e
+saída deste fd é esperado que seja uma linha delimitadora de objetos JSON.
 
-## Synchronous Process Creation
+## Processos de criação síncrona
 
-These methods are **synchronous**, meaning they **WILL** block the event loop,
-pausing execution of your code until the spawned process exits.
+Estes métodos são síncrono **synchronous**, significa que eles bloquearão o evento loop,
+pausa a execução do sue código até o processo gerado terminar.
 
-Blocking calls like these are mostly useful for simplifying general purpose
-scripting tasks and for simplifying the loading/processing of application
-configuration at startup.
+Bloquear chamadas como estas são muito úteis para simplificar o propósito geral 
+do script das tarefas e para simplificar o carregamento/processamento da configuração
+da aplicação ao começar.
 
 ### child_process.spawnSync(command[, args][, options])
 
-* `command` {String} The command to run
-* `args` {Array} List of string arguments
+* `command` {String} O comando para executar
+* `args` {Array} Lista de string de argumentos
 * `options` {Object}
-  * `cwd` {String} Current working directory of the child process
-  * `input` {String|Buffer} The value which will be passed as stdin to the spawned process
-    - supplying this value will override `stdio[0]`
-  * `stdio` {Array} Child's stdio configuration.
-  * `env` {Object} Environment key-value pairs
-  * `uid` {Number} Sets the user identity of the process. (See setuid(2).)
-  * `gid` {Number} Sets the group identity of the process. (See setgid(2).)
-  * `timeout` {Number} In milliseconds the maximum amount of time the process is allowed to run. (Default: undefined)
-  * `killSignal` {String} The signal value to be used when the spawned process will be killed. (Default: 'SIGTERM')
+  * `cwd` {String} Diretório de trabalho atual do subprocesso
+  * `input` {String|Buffer} O valor que será passado como stdin para o processo gerado
+    - fornecer este valor sobrescreverá `stdio[0]`
+  * `stdio` {Array} configuração stdio do subprocesso.
+  * `env` {Object} Ambiente em pares chave-valor
+  * `uid` {Number} Define a identidade do usuário do processo. (Veja setuid(2).)
+  * `gid` {Number} Define a identidade do grupo do processo. (Veja setgid(2).)
+  * `timeout` {Number} A quantia máxima em milisegundos em que é permitido ao processo ser executado. (Padrão: undefined)
+  * `killSignal` {String} O valor do sinal a ser usado quando o processo gerado será terminado. (Padrão: 'SIGTERM')
   * `maxBuffer` {Number}
-  * `encoding` {String} The encoding used for all stdio inputs and outputs. (Default: 'buffer')
+  * `encoding` {String} A codificação utilizada por todas as entradas e saídas do stdio. (Padrão: 'buffer')
 * return: {Object}
-  * `pid` {Number} Pid of the child process
-  * `output` {Array} Array of results from stdio output
-  * `stdout` {Buffer|String} The contents of `output[1]`
-  * `stderr` {Buffer|String} The contents of `output[2]`
-  * `status` {Number} The exit code of the child process
-  * `signal` {String} The signal used to kill the child process
-  * `error` {Error} The error object if the child process failed or timed out
+  * `pid` {Number} Pid do subprocesso
+  * `output` {Array} Vetor de resultados da saída stdio 
+  * `stdout` {Buffer|String} O conteúdo de `output[1]`
+  * `stderr` {Buffer|String} O conteúdo de `output[2]`
+  * `status` {Number} O código de saída do subprocesso
+  * `signal` {String} O sinal utilizado para terminar o subprocesso
+  * `error` {Error} O objeto error caso o subprocesso falhe ou dê time out
 
-`spawnSync` will not return until the child process has fully closed. When a
-timeout has been encountered and `killSignal` is sent, the method won't return
-until the process has completely exited. That is to say, if the process handles
-the `SIGTERM` signal and doesn't exit, your process will wait until the child
-process has exited.
+`spawnSync` não retornará até o subprocesso finalizar completamente. Quando um
+timeout é encontrado e `killSignal` é enviado, o método não retornará
+até que o processo tenha terminado completamente. ISto é para dizer, Se o processo manipula 
+o sinal `SIGTERM` e não termina, seu processo irá esperar até o subprocesso
+finalizar.
 
 ### child_process.execFileSync(command[, args][, options])
 
-* `command` {String} The command to run
-* `args` {Array} List of string arguments
+* `command` {String} O comando a ser executável
+* `args` {Array} Lista de string de argumentos
 * `options` {Object}
-  * `cwd` {String} Current working directory of the child process
-  * `input` {String|Buffer} The value which will be passed as stdin to the spawned process
-    - supplying this value will override `stdio[0]`
-  * `stdio` {Array} Child's stdio configuration. (Default: 'pipe')
-    - `stderr` by default will be output to the parent process' stderr unless
-      `stdio` is specified
-  * `env` {Object} Environment key-value pairs
-  * `uid` {Number} Sets the user identity of the process. (See setuid(2).)
-  * `gid` {Number} Sets the group identity of the process. (See setgid(2).)
-  * `timeout` {Number} In milliseconds the maximum amount of time the process is allowed to run. (Default: undefined)
-  * `killSignal` {String} The signal value to be used when the spawned process will be killed. (Default: 'SIGTERM')
+  * `cwd` {String} Diretório de trabalho atual do subprocesso
+  * `input` {String|Buffer} O valor que será passado como stdin para o processo gerado
+    - fornece este valor sobrescreverá `stdio[0]`
+  * `stdio` {Array} Configuração stdio do subprocesso. (Padrão: 'pipe')
+    - `stderr` por padrão sairá para o stderr do processo principal a menos
+      que `stdio` seja especificado
+  * `env` {Object} Ambiente de pares chave-valor
+  * `uid` {Number} Define a identidade do usuário do processo. (Veja setuid(2).)
+  * `gid` {Number} Define a identidade do grupo do processo. (Veja setgid(2).)
+  * `timeout` {Number} A quantidade máxima em milisegundos que permitirá o processo ser executado. (Padrão: undefined)
+  * `killSignal` {String} O valor do sinal a ser usado quando o processo gerado será finalizado. (Padrão: 'SIGTERM')
   * `maxBuffer` {Number}
-  * `encoding` {String} The encoding used for all stdio inputs and outputs. (Default: 'buffer')
-* return: {Buffer|String} The stdout from the command
+  * `encoding` {String} A codificação utilizada por todas as entradas e saídas do stdio. (Padrão: 'buffer')
+* retorna: {Buffer|String} O stdout do comando
 
-`execFileSync` will not return until the child process has fully closed. When a
-timeout has been encountered and `killSignal` is sent, the method won't return
-until the process has completely exited. That is to say, if the process handles
-the `SIGTERM` signal and doesn't exit, your process will wait until the child
-process has exited.
+`execFileSync` não retornará até que o subprocesso seja completamente finalizado. Quando um
+timeout é encontrado e `killSignal` é enviado, o método não retornará
+até o processo seja completamente finalizado. Isto é, Se o processo manipular
+o sinal `SIGTERM` e não finaliza, seu processo irá esperar o subprocesso
+terminar.
 
-If the process times out, or has a non-zero exit code, this method ***will***
-throw.  The `Error` object will contain the entire result from
+Se o processo der timeout, ou tiver um código de saída diferente de zero, este método irá
+disparar um erro.  O objeto `Error` irá conter todo o resultado de
 [`child_process.spawnSync`](#child_process_child_process_spawnsync_command_args_options)
 
 
 ### child_process.execSync(command[, options])
 
-* `command` {String} The command to run
+* `command` {String} O comando para executar
 * `options` {Object}
-  * `cwd` {String} Current working directory of the child process
-  * `input` {String|Buffer} The value which will be passed as stdin to the spawned process
-    - supplying this value will override `stdio[0]`
-  * `stdio` {Array} Child's stdio configuration. (Default: 'pipe')
-    - `stderr` by default will be output to the parent process' stderr unless
-      `stdio` is specified
-  * `env` {Object} Environment key-value pairs
-  * `uid` {Number} Sets the user identity of the process. (See setuid(2).)
-  * `gid` {Number} Sets the group identity of the process. (See setgid(2).)
-  * `timeout` {Number} In milliseconds the maximum amount of time the process is allowed to run. (Default: undefined)
-  * `killSignal` {String} The signal value to be used when the spawned process will be killed. (Default: 'SIGTERM')
+  * `cwd` {String} Diretório de trabalho atual do subprocesso
+  * `input` {String|Buffer} O valor que será passado como stdin para o processo gerado
+    - fornecer este valor sobrescreverá `stdio[0]`
+  * `stdio` {Array} Configuração stdio do subprocesso. (Padrão: 'pipe')
+    - `stderr` por padrão a saída será para o stderr do processo principal a menos que
+      `stdio` seja especificado
+  * `env` {Object} Ambiente de pares chave-valor
+  * `uid` {Number} Define a identidade do usuário do processo. (Veja setuid(2).)
+  * `gid` {Number} Define a identidade do grupo do processo. (Veja setgid(2).)
+  * `timeout` {Number} A quantia máxima em milisegundos em que é permitido ao processo ser executado. (Padrão: undefined)
+  * `killSignal` {String} O valor do sinal a ser utilizado quando o processo gerado será terminado. (Padrão: 'SIGTERM')
   * `maxBuffer` {Number}
-  * `encoding` {String} The encoding used for all stdio inputs and outputs. (Default: 'buffer')
-* return: {Buffer|String} The stdout from the command
+  * `encoding` {String} A codificação utilizada por todas as entradas e saídas stdio. (Padrão: 'buffer')
+* retorno: {Buffer|String} O stdout do comando
 
-`execSync` will not return until the child process has fully closed. When a
-timeout has been encountered and `killSignal` is sent, the method won't return
-until the process has completely exited. That is to say, if the process handles
-the `SIGTERM` signal and doesn't exit, your process will wait until the child
-process has exited.
+`execSync` não retornará até que o subprocesso termine completamente. Quando um
+timeout for encontrado e `killSignal` é enviado, o método não retornará
+até que o processo tenha terminado completamente. Isto é, Se o processo manipular
+o sinal `SIGTERM` e não terminar, seu processo irá esperar até o subprocesso
+finalizar.
 
-If the process times out, or has a non-zero exit code, this method ***will***
-throw.  The `Error` object will contain the entire result from
+Se o processo der timeout, ou tiver um código de saída diferente de zero, este método irá
+disparar um erro. O objeto `Error` irá conter todo o resultado de
 [`child_process.spawnSync`](#child_process_child_process_spawnsync_command_args_options)
 
 [EventEmitter]: events.html#events_class_events_eventemitter
