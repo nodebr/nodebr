@@ -26,19 +26,18 @@ server.route({
     view: 'new_news'
   }
 });
- 
+
 server.route({
   method: 'GET',
   path: '/noticia/rss',
-  handler: function(req, res){
-    News.find({}, function(err, news){
-      if(err)
+  handler: function (req, res) {
+    News.find().where('karma').gt(-6).exec(function(err, news) {
+      if(err) {
         throw err;
- 
+      }
+
       rss.addItems(news);
-      
-      res(rss.getRSS())
-      .type('text/xml');
+      res(rss.getRSS()).type('text/xml');
     });
   }
 });
