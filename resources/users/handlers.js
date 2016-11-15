@@ -1,4 +1,3 @@
-
 const db = require('../../lib/db')
 const User = db.model('User')
 
