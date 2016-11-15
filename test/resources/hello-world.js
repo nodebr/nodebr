@@ -13,7 +13,7 @@ const fixtures = require('../fixtures')
 const ENDPOINT = '/hello-world'
 
 lab.describe('hello-world', () => {
-  lab.beforeEach(() => db.truncate())
+  lab.beforeEach(() => db.knex('hello_world').truncate())
 
   lab.describe(`POST ${ENDPOINT}`, () => {
     lab.test('não deve aceitar um payload que não esteja de acordo com o schema', co.wrap(function * () {
