@@ -16,5 +16,4 @@ router.post('/users',
   validator({ body: schemas.create }),
   handlers.create)
 
-
 module.exports = router
