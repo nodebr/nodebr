@@ -6,6 +6,13 @@
 Este repositório refere-se ao backend da comunidade NodeBR hospedada no website
 https://nodebr.org.
 
+### Documentação
+
+Para que você possa contribuir e desenvolver de forma ágil e sem dúvidas
+conselhamos que você leia a documentação do projeto disponível no link abaixo.
+
+https://github.com/nodebr/nodebr/wiki/Backend
+
 ### Canais de ajuda
 
 Antes de iniciar sua contribuição é recomendável que você acesse nosso canal no
