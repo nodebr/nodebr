@@ -1,5 +1,7 @@
 # Backend NodeBR
 
+![](https://circleci.com/gh/nodebr/nodebr/tree/backend.svg?style=shield&circle-token=b074cef2067115bcb93a37b1645cdedf7db96938)
+
 Este repositório refere-se ao backend da comunidade NodeBR hospedada no website
 https://nodebr.org.
 
