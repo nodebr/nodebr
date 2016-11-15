@@ -1,7 +1,7 @@
 # Backend NodeBR
 
 ![](https://circleci.com/gh/nodebr/nodebr/tree/backend.svg?style=shield&circle-token=b074cef2067115bcb93a37b1645cdedf7db96938)
-[![Code Climate](https://codeclimate.com/github/nodebr/nodebr/badges/gpa.svg)](https://codeclimate.com/github/nodebr/nodebr)
+[![codecov](https://codecov.io/gh/nodebr/nodebr/branch/backend/graph/badge.svg)](https://codecov.io/gh/nodebr/nodebr/branch/backend)
 
 Este repositório refere-se ao backend da comunidade NodeBR hospedada no website
 https://nodebr.org.
