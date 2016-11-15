@@ -8,7 +8,7 @@ const handlers = require('./handlers')
 
 const router = express.Router()
 
-router.post('/users',
+router.post('/usuario',
   bodyParser.json(),
   validator({ body: schemas.create }),
   handlers.create)
