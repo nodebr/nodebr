@@ -8,6 +8,6 @@ exports.model = Joi.object({
 
 exports.create = exports.model.concat(Joi.object({
   id: Joi.forbidden(),
-  username: Joi.string().alphanum().min(3).max(20).required(),
-  password: Joi.string().max(60).required()
+  username: Joi.string().token().min(3).max(20).required(),
+  password: Joi.string().min(8).max(120).required()
 }))

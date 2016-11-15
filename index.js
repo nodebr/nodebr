@@ -1,7 +1,5 @@
 'use strict'
 
-require('dotenv').config()
-
 const server = require('./lib/server')
 
 // Inicia o servidor na porta especificada pelo environment
