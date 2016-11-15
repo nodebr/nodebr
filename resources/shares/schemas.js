@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 exports.model = Joi.object({
   id: Joi.string().uuid(),
-  user_id: Joi.string().uuid(),
+  user_id: Joi.string().uuid().meta({ index: true }),
   title: Joi.string(),
   thumbnail: Joi.string(),
   link: Joi.string()
