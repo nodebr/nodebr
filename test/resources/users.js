@@ -39,6 +39,32 @@ lab.describe('users', () => {
         username: 'mark'
       })
     }))
+
+    lab.test('retorna um erro quando o usuário já existir', co.wrap(function * () {
+      // first request
+      yield request(server)
+      .post(ENDPOINT)
+      .send({
+        username: 'foo',
+        password: 'foobarbaz'
+      })
+
+      const req = yield request(server)
+      .post(ENDPOINT)
+      .send({
+        username: 'foo',
+        password: 'foobarbaz'
+      })
+
+      expect(req.statusCode).to.equal(400)
+      expect(req.res.body.error).to.equal('Este usuário já existe')
+
+      const data = yield Model.findAll()
+      expect(data).to.have.length(1)
+      expect(data.at(0).toJSON()).to.contain({
+        username: 'foo'
+      })
+    }))
   })
 })
 
