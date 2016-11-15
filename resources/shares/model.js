@@ -4,4 +4,4 @@
  */
 module.exports = bookshelf => bookshelf.model('Share', {
   tableName: 'shares'
-});
+})
