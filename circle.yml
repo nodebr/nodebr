@@ -13,7 +13,7 @@ machine:
 test:
   override:
     - npm run test-cov
-    - npm install -g codeclimate-test-reporter
-    - codeclimate-test-reporter < coverage/lcov.info
+  post:
+    - bash <(curl -s https://codecov.io/bash)
   pre:
     - npm run knex -- migrate:latest
