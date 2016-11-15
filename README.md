@@ -23,6 +23,13 @@ mysql> grant all privileges on nodebr.* to 'nodebr'@'localhost';
 $ npm run knex migrate:latest
 ```
 
+### Documentação
+
+Para que você possa contribuir e desenvolver de forma ágil e sem dúvidas
+conselhamos que você leia a documentação do projeto disponível no link abaixo.
+
+https://github.com/nodebr/nodebr/wiki/Backend
+
 ### Canais de ajuda
 
 Antes de iniciar sua contribuição é recomendável que você acesse nosso canal no
