@@ -1,0 +1,17 @@
+general:
+  branches:
+    only:
+      - backend
+machine:
+  services:
+    - mysql
+  environment:
+    DATABASE_URL: mysql://ubuntu@localhost/circle_test
+    NODE_ENV: test
+  node:
+    version: v6.9
+test:
+  override:
+    - npm run test-cov
+  pre:
+    - npm run knex -- migrate:latest
