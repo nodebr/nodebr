@@ -1,0 +1,43 @@
+{
+  "name": "nodebr",
+  "version": "1.0.0",
+  "description": "Este repositório refere-se ao backend da comunidade NodeBR hospedada no website https://nodebr.org.",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && lab --verbose --colors --assert code --ignore __core-js_shared__",
+    "test-cov": "npm test -- -r console -o stdout -r html -o coverage/coverage.html -r lcov -o coverage/lcov.info",
+    "knex": "knex --knexfile ./lib/db/knexfile.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodebr/nodebr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nodebr/nodebr/issues"
+  },
+  "homepage": "https://github.com/nodebr/nodebr#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bookshelf": "^0.10.2",
+    "bookshelf-bcrypt": "^2.1.0",
+    "bookshelf-modelbase": "^2.10.1",
+    "bookshelf-uuid": "^1.0.0",
+    "co": "^4.6.0",
+    "express": "^4.14.0",
+    "glob": "^7.1.1",
+    "helmet": "^3.1.0",
+    "joi": "^9.2.0",
+    "knex": "^0.12.6",
+    "mysql2": "^1.1.1"
+  },
+  "devDependencies": {
+    "code": "^4.0.0",
+    "lab": "^11.2.1",
+    "standard": "^8.5.0",
+    "supertest": "^2.0.1"
+  }
+}
