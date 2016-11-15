@@ -9,7 +9,7 @@ const server = require('../../lib/server')
 const db = require('../../lib/db')
 const Model = db.model('User')
 
-const ENDPOINT = '/usuario'
+const ENDPOINT = '/usuarios'
 
 lab.describe('users', () => {
   lab.beforeEach(() => db.truncate())
