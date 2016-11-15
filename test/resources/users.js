@@ -12,7 +12,7 @@ const Model = db.model('User')
 const ENDPOINT = '/users'
 
 lab.describe('users', () => {
-  lab.beforeEach(() => db.knex('users').truncate())
+  lab.beforeEach(() => db.truncate())
 
   lab.describe(`POST ${ENDPOINT}`, () => {
     lab.test('não deve aceitar um payload que não esteja de acordo com o schema', co.wrap(function * () {
