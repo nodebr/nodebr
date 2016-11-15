@@ -13,24 +13,6 @@ conselhamos que você leia a documentação do projeto disponível no link abaix
 
 https://github.com/nodebr/nodebr/wiki/Backend
 
-### Setup
-
-1. Instale `mysql` e crie o database / user.
-
-```mysql
-$ mysql -uroot
-mysql> create database nodebr;
-mysql> create user 'nodebr'@'localhost' identified by 'nodebr';
-mysql> grant all privileges on nodebr.* to 'nodebr'@'localhost';
-```
-
-2. Rode as migrations
-
-```sh
-$ npm run knex migrate:latest
-```
->>>>>>> Add steps necessary to run the app to the README
-
 ### Canais de ajuda
 
 Antes de iniciar sua contribuição é recomendável que você acesse nosso canal no
