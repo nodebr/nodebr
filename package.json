@@ -7,6 +7,7 @@
     "test": "standard && lab --verbose --colors --assert code --ignore __core-js_shared__",
     "test-cov": "npm test -- -r console -o stdout -r html -o coverage/coverage.html -r lcov -o coverage/lcov.info",
     "knex": "knex --knexfile ./lib/db/knexfile.js",
+    "fix": "standard --fix",
     "start": "node index.js"
   },
   "repository": {
