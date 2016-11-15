@@ -6,23 +6,6 @@
 Este repositório refere-se ao backend da comunidade NodeBR hospedada no website
 https://nodebr.org.
 
-### Setup
-
-1. Instale `mysql` e crie o database / user.
-
-```mysql
-$ mysql -uroot
-mysql> create database nodebr;
-mysql> create user 'nodebr'@'localhost' identified by 'nodebr';
-mysql> grant all privileges on nodebr.* to 'nodebr'@'localhost';
-```
-
-2. Rode as migrations
-
-```sh
-$ npm run knex migrate:latest
-```
-
 ### Documentação
 
 Para que você possa contribuir e desenvolver de forma ágil e sem dúvidas

@@ -1,4 +1,6 @@
 
 module.exports = bookshelf => bookshelf.model('User', {
-  tableName: 'users'
+  tableName: 'users',
+  hidden: [ 'password' ],
+  bcrypt: { field: 'password' }
 })
