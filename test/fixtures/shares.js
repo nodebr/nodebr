@@ -48,8 +48,8 @@ exports.insertMultiple = (options) => {
  * @return {Promise} Uma promise que resolve quando os registros forem inseridos
  */
 exports.insertMultipleWithId = uuidArray => {
-  let i = 1;
-  
+  let i = 1
+
   return knex('shares').insert(uuidArray.map(id => ({
     id: id,
     user_id: firstUserId,
