@@ -19,7 +19,7 @@ exports.findOne = (req, res) => {
 }
 
 exports.remove = (req, res) => {
-  if (req.params.id !== req.session.user_id) return res.status(403).end();
+  if (req.params.id !== req.session.user_id) return res.status(403).end()
 
   return Shares
     .forge({ id: req.params.id })

@@ -1,8 +1,8 @@
 const uuid = require('uuid')
 const { knex } = require('../../lib/db')
 
-const firstUserId = '212dd279-129f-474a-beb2-a1cac605cf48';
-const secondUserId = '6af458a8-df22-4da9-a726-89d14076e220';
+const firstUserId = '212dd279-129f-474a-beb2-a1cac605cf48'
+const secondUserId = '6af458a8-df22-4da9-a726-89d14076e220'
 
 /**
  * Insere N registros na tabela shares
@@ -47,13 +47,16 @@ exports.insertMultiple = (options) => {
  * @param {array} uuidArray array de uuids para criar novos registros
  * @return {Promise} Uma promise que resolve quando os registros forem inseridos
  */
-exports.insertMultipleWithId = uuidArray =>
-  knex('shares').insert(uuidArray.map(id => ({
+exports.insertMultipleWithId = uuidArray => {
+  let i = 1;
+  
+  return knex('shares').insert(uuidArray.map(id => ({
     id: id,
     user_id: firstUserId,
-    title: `Artigo teste compartilhamento - Parte ${i + 1}`,
+    title: `Artigo teste compartilhamento - Parte ${i++}`,
     thumbnail: 'https://google.com.br/logo',
     link: 'https://google.com.br',
     created_at: new Date(),
     updated_at: new Date()
   })))
+}
