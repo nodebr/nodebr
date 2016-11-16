@@ -7,7 +7,6 @@
     "test": "standard && lab --verbose --colors --assert code --ignore __core-js_shared__",
     "test-cov": "npm test -- -r console -o stdout -r html -o coverage/coverage.html -r lcov -o coverage/lcov.info",
     "knex": "knex --knexfile ./lib/db/knexfile.js",
-    "fix": "standard --fix",
     "start": "node index.js"
   },
   "repository": {
@@ -41,6 +40,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "lab": "^11.2.1",
     "standard": "^8.5.0",
-    "supertest": "^2.0.1"
+    "supertest": "^2.0.1",
+    "uuid": "^2.0.3"
   }
 }
