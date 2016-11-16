@@ -9,7 +9,7 @@ const session = require('../../lib/session')
 
 router.get('/compartilhamentos/',
   validator({ query: schemas.query }),
-  handlers.findLimitedByPage)
+  handlers.findAll)
 
 router.get('/compartilhamentos/:id', handlers.findOne)
 
@@ -21,3 +21,5 @@ router.post('/compartilhamentos',
 router.delete('/compartilhamentos/:id',
   session(),
   handlers.remove)
+
+module.exports = router

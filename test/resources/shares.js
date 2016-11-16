@@ -17,6 +17,8 @@ lab.describe('shares', () => {
 
   lab.describe(`POST ${ENDPOINT}`, () => {
     lab.test('não deve aceitar um payload que não esteja de acordo com o schema', co.wrap(function * () {
+      yield fixtures.users.insertMultiple()
+
       const req = yield request(server)
       .post(ENDPOINT)
       .send({
@@ -34,6 +36,9 @@ lab.describe('shares', () => {
       const title = 'Lab test article'
       const thumbnail = 'http://placehold.it/350x150'
       const link = 'https://www.google.com/'
+
+      yield fixtures.users.insertMultiple()
+
       const req = yield request(server)
       .post(ENDPOINT)
       .send({ user_id: firstUserId, title, thumbnail, link })
@@ -59,6 +64,8 @@ lab.describe('shares', () => {
   lab.describe(`GET ${ENDPOINT}`, () => {
     lab.test('deve retornar até as 50 primeiras linhas do banco de dados', co.wrap(function * () {
       const options = { firstUserSharesQty: 15, secondUserSharesQty: 1 }
+
+      yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultiple(options)
 
       const req = yield request(server)
@@ -79,6 +86,8 @@ lab.describe('shares', () => {
 
     lab.test('deve retornar até as 5 primeiras linhas do banco de dados', co.wrap(function * () {
       const options = { firstUserSharesQty: 4, secondUserSharesQty: 2 }
+
+      yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultiple(options)
 
       const baseTitle = 'Veja como utilizar o V8 da melhor maneira - Parte '
@@ -99,6 +108,8 @@ lab.describe('shares', () => {
 
     lab.test('deve pular as 5 primeiras linhas do banco de dados e retornar a seguinte', co.wrap(function * () {
       const options = { firstUserSharesQty: 4, secondUserSharesQty: 2 }
+
+      yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultiple(options)
 
       const req = yield request(server)
@@ -117,6 +128,7 @@ lab.describe('shares', () => {
     lab.test('deve retornar a linha selecionada', co.wrap(function * () {
       const id = uuid.v4()
 
+      yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultipleWithId([id])
 
       const req = yield request(server)
@@ -137,6 +149,7 @@ lab.describe('shares', () => {
       const id = uuid.v4()
       const otherId = uuid.v4()
 
+      yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultipleWithId([id])
 
       const req = yield request(server)
@@ -150,11 +163,11 @@ lab.describe('shares', () => {
     lab.test('deve remover do banco de dados a linha selecionada', co.wrap(function * () {
       const id = uuid.v4()
 
-      yield fixtures.shares.insertMultipleWithId([id])
       yield fixtures.users.insertMultiple()
+      yield fixtures.shares.insertMultipleWithId([id])
 
       const req = yield request(server)
-      .set('Cookie', yield fixtures.sessions.cookie('alanhoff', 'awesomePassword'))
+      .set('Cookie', yield fixtures.sessions.cookie('alanhoff', '$2a$12$SQM/UfsYvHrQ0sWWMQHsfOSg6Hfd.fGFQrj8VymlZGzmtr78BIs6i'))
       .delete(`${ENDPOINT}/${id}`)
 
       expect(req.statusCode).to.equal(200)
@@ -170,10 +183,11 @@ lab.describe('shares', () => {
     lab.test('não deve remover do banco de dados a linha selecionada para outro usuário', co.wrap(function * () {
       const id = uuid.v4()
 
+      yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultipleWithId([id])
 
       const req = yield request(server)
-      .set('Cookie', yield fixtures.sessions.cookie('thebergamo', 'awesomePassword'))
+      .set('Cookie', yield fixtures.sessions.cookie('thebergamo', '$2a$12$SQM/UfsYvHrQ0sWWMQHsfOSg6Hfd.fGFQrj8VymlZGzmtr78BIs6i'))
       .delete(`${ENDPOINT}/${id}`)
 
       expect(req.statusCode).to.equal(403)
