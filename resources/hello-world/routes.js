@@ -20,6 +20,8 @@ router.delete('/hello-world/:id', handlers.remove)
 
 // Somente exportamos esta rota caso o ambiente for de desenvolvimento
 // pois não queremos que a mesma esteja disponível em produção
+/* $lab:coverage:off$ */
 if (process.env.NODE_ENV !== 'production') {
   module.exports = router
 }
+/* $lab:coverage:on$ */

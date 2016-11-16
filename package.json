@@ -7,7 +7,9 @@
     "test": "standard && lab --verbose --colors --assert code --ignore __core-js_shared__",
     "test-cov": "npm test -- -r console -o stdout -r html -o coverage/coverage.html -r lcov -o coverage/lcov.info",
     "knex": "knex --knexfile ./lib/db/knexfile.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "migrate": "npm run knex migrate:latest",
+    "reset": "node ./scripts/drop-database; npm run migrate"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,9 @@
     "bookshelf-bcrypt": "^2.1.0",
     "bookshelf-modelbase": "^2.10.1",
     "bookshelf-uuid": "^1.0.0",
+    "boom": "^4.2.0",
     "co": "^4.6.0",
+    "cookie-session": "^2.0.0-alpha.2",
     "express": "^4.14.0",
     "glob": "^7.1.1",
     "helmet": "^3.1.0",
