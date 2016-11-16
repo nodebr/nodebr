@@ -11,7 +11,6 @@ const fixtures = require('../fixtures')
 
 const ENDPOINT = '/shares'
 const firstUserId = '212dd279-129f-474a-beb2-a1cac605cf48'
-const secondUserId = '6af458a8-df22-4da9-a726-89d14076e220'
 
 lab.describe('shares', () => {
   lab.beforeEach(() => db.truncate())
@@ -78,12 +77,11 @@ lab.describe('shares', () => {
       expect(req.res.body.map(item => item.title)).to.contain(titles)
     }))
 
-
     lab.test('deve retornar até as 5 primeiras linhas do banco de dados', co.wrap(function * () {
       const options = { firstUserSharesQty: 4, secondUserSharesQty: 2 }
       yield fixtures.shares.insertMultiple(options)
 
-      const baseTitle = 'Veja como utilizar o V8 da melhor maneira - Parte ';
+      const baseTitle = 'Veja como utilizar o V8 da melhor maneira - Parte '
       const req = yield request(server)
       .get(`${ENDPOINT}?limit=5&page=1`)
 
@@ -127,8 +125,8 @@ lab.describe('shares', () => {
       expect(req.statusCode).to.equal(200)
       expect(req.res.body).to.be.an.object()
       expect(req.res.body).to.contain({
-        id: '',
-        user_id: '4eb8065f-4483-4877-bfb5-147eb8d2766c',
+        id: id,
+        user_id: firstUserId,
         title: `Veja como utilizar o V8 da melhor maneira - Parte 1`,
         thumbnail: 'https://google.com.br/logo',
         link: 'https://google.com.br'
@@ -171,12 +169,12 @@ lab.describe('shares', () => {
 
     lab.test('não deve remover do banco de dados a linha selecionada para outro usuário', co.wrap(function * () {
       const id = uuid.v4()
-      const otherId = uuid.v4()
 
       yield fixtures.shares.insertMultipleWithId([id])
 
       const req = yield request(server)
-      .delete(`${ENDPOINT}/${otherId}`)
+      .set('Cookie', yield fixtures.sessions.cookie('thebergamo', 'awesomePassword'))
+      .delete(`${ENDPOINT}/${id}`)
 
       expect(req.statusCode).to.equal(403)
     }))
