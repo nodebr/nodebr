@@ -15,13 +15,13 @@ exports.create = function * (req, res) {
     throw Boom.badData('Não foi possível encontrar o usuário')
   })
 
-  // Verifica se a senha está ok e seta a sessão
-  if (yield user.compare(req.body.password)) {
-    req.session.user_id = user.id
-  } else {
+  // Verifica se a senha está ok
+  if (!(yield user.compare(req.body.password))) {
     throw Boom.badData('Sua senha está incorreta')
   }
 
+  // Seta a sessão e retorna sucesso
+  req.session.user_id = user.id
   res.send({ success: true })
 }
 

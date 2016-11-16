@@ -9,7 +9,7 @@
     "knex": "knex --knexfile ./lib/db/knexfile.js",
     "start": "node index.js",
     "migrate": "npm run knex migrate:latest",
-    "reset": "node -e \"require('./lib/db').dropDatabase().then(() => process.exit(0), err => { console.error(err.stack); process.exit(1) })\"; npm run migrate"
+    "reset": "node ./scripts/drop-database; npm run migrate"
   },
   "repository": {
     "type": "git",

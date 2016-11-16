@@ -10,12 +10,6 @@ const request = require('supertest')
 exports.cookie = (username, password) => request(server)
 .post('/sessions')
 .send({ username, password })
-.then(res => {
-  const cookies = []
-
-  // Separa o nome de cada cookie e seu valor
-  cookies.push(res.header['set-cookie'][0].split(';')[0])
-  cookies.push(res.header['set-cookie'][1].split(';')[0])
-
-  return cookies.join(';')
-})
+.then(res => res.header['set-cookie']
+  .map(e => e.split(';')[0])
+  .join(';'))
