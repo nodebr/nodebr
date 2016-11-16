@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 exports.model = Joi.object({
   id: Joi.string().uuid(),
-  user_id: Joi.string().uuid().meta({ index: true }),
+  user_id: Joi.string().uuid(),
   title: Joi.string(),
   thumbnail: Joi.string(),
   link: Joi.string()
@@ -16,7 +16,7 @@ exports.create = exports.model.concat(Joi.object({
   link: Joi.string().uri().max(255).required()
 }))
 
-exports.findLimitedByPageQs = Joi.object({
+exports.query = Joi.object({
   limit: Joi.number().integer().positive().max(50).default(15),
   offset: Joi.number().integer().positive().default(0)
 })

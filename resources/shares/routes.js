@@ -5,9 +5,10 @@ const validator = require('../../lib/validator')
 const schemas = require('./schemas')
 const handlers = require('./handlers')
 const router = express.Router()
+const session = require('../../lib/session')
 
 router.get('/compartilhamentos/',
-  validator({ query: schemas.findLimitedByPageQs }),
+  validator({ query: schemas.query }),
   handlers.findLimitedByPage)
 
 router.get('/compartilhamentos/:id', handlers.findOne)
@@ -17,10 +18,6 @@ router.post('/compartilhamentos',
   validator({ body: schemas.create }),
   handlers.create)
 
-router.delete('/compartilhamentos/:id', handlers.remove)
-
-// Somente exportamos esta rota caso o ambiente for de desenvolvimento
-// pois não queremos que a mesma esteja disponível em produção
-if (process.env.NODE_ENV !== 'production') {
-  module.exports = router
-}
+router.delete('/compartilhamentos/:id',
+  session(),
+  handlers.remove)

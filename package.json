@@ -45,6 +45,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "lab": "^11.2.1",
     "standard": "^8.5.0",
-    "supertest": "^2.0.1"
+    "supertest": "^2.0.1",
+    "uuid": "^2.0.3"
   }
 }

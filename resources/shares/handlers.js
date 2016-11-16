@@ -1,30 +1,34 @@
 const db = require('../../lib/db')
-const Share = db.model('Share')
+const Shares = db.model('Share')
 
-exports.findLimitedByPage = (req, res) => {
-  const offset = req.query.page * req.query.limit
-
-  return Share
+exports.findAll = (req, res) => {
+  return Shares
+    .findAll({}, { withRelated: ['user'] })
     .limit(req.query.limit)
-    .offset(offset)
+    .offset(req.query.offset)
     .then(collection => res.send(collection))
 }
 
 exports.findOne = (req, res) => {
-  return Share
-    .findById(req.params.id)
-    .then(share => res.send(share))
+  return Shares
+    .findById(req.params.id, { withRelated: ['user'] })
+    .then(share => {
+      if (!share) return res.status(404).end()
+      return res.send(share)
+    })
 }
 
 exports.remove = (req, res) => {
-  return Share
+  if (req.params.id !== req.session.user_id) return res.status(403).end();
+
+  return Shares
     .forge({ id: req.params.id })
     .destroy()
     .then(() => res.send({ success: true }))
 }
 
 exports.create = (req, res) => {
-  return Share
+  return Shares
     .create(req.body)
     .then(share => res.send(share))
 }
