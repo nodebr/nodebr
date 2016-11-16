@@ -168,6 +168,11 @@ lab.describe('shares', () => {
 
       const req = yield request(server)
       .set('Cookie', yield fixtures.sessions.cookie('alanhoff', '$2a$12$SQM/UfsYvHrQ0sWWMQHsfOSg6Hfd.fGFQrj8VymlZGzmtr78BIs6i'))
+      yield fixtures.shares.insertMultipleWithId([id])
+      yield fixtures.users.insertMultiple()
+
+      const req = yield request(server)
+      .set('Cookie', yield fixtures.sessions.cookie('alanhoff', 'awesomePassword'))
       .delete(`${ENDPOINT}/${id}`)
 
       expect(req.statusCode).to.equal(200)
