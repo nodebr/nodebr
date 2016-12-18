@@ -9,7 +9,7 @@ const db = require('../../lib/db')
 const Share = db.model('Share')
 const fixtures = require('../fixtures')
 
-const ENDPOINT = '/shares'
+const ENDPOINT = '/compartilhamentos'
 const firstUserId = '212dd279-129f-474a-beb2-a1cac605cf48'
 
 lab.describe('shares', () => {
@@ -62,37 +62,15 @@ lab.describe('shares', () => {
   })
 
   lab.describe(`GET ${ENDPOINT}`, () => {
-    lab.test('deve retornar até as 50 primeiras linhas do banco de dados', co.wrap(function * () {
-      const options = { firstUserSharesQty: 15, secondUserSharesQty: 1 }
-
-      yield fixtures.users.insertMultiple()
-      yield fixtures.shares.insertMultiple(options)
-
-      const req = yield request(server)
-      .get(ENDPOINT)
-
-      const titles = []
-      for (var i = 0; i < 15; i++) {
-        titles.push(`Veja como utilizar o V8 da melhor maneira - Parte ${i + 1}`)
-      }
-
-      titles.push('Introdução a NodeJS - Parte 1')
-
-      expect(req.statusCode).to.equal(200)
-      expect(req.res.body).to.be.an.array()
-      expect(req.res.body).to.have.length(16)
-      expect(req.res.body.map(item => item.title)).to.contain(titles)
-    }))
-
     lab.test('deve retornar até as 5 primeiras linhas do banco de dados', co.wrap(function * () {
-      const options = { firstUserSharesQty: 4, secondUserSharesQty: 2 }
+      const baseTitle = 'Veja como utilizar o V8 da melhor maneira - Parte '
+      const options = { firstUserQty: 4, secondUserQty: 2 }
 
       yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultiple(options)
 
-      const baseTitle = 'Veja como utilizar o V8 da melhor maneira - Parte '
       const req = yield request(server)
-      .get(`${ENDPOINT}?limit=5&page=1`)
+      .get(`${ENDPOINT}?limit=5&offset=0`)
 
       expect(req.statusCode).to.equal(200)
       expect(req.res.body).to.be.an.array()
@@ -107,13 +85,13 @@ lab.describe('shares', () => {
     }))
 
     lab.test('deve pular as 5 primeiras linhas do banco de dados e retornar a seguinte', co.wrap(function * () {
-      const options = { firstUserSharesQty: 4, secondUserSharesQty: 2 }
+      const options = { firstUserQty: 4, secondUserQty: 2 }
 
       yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultiple(options)
 
       const req = yield request(server)
-      .get(`${ENDPOINT}?limit=5&page=2`)
+      .get(`${ENDPOINT}?limit=5&offset=5`)
 
       expect(req.statusCode).to.equal(200)
       expect(req.res.body).to.be.an.array()
@@ -136,13 +114,7 @@ lab.describe('shares', () => {
 
       expect(req.statusCode).to.equal(200)
       expect(req.res.body).to.be.an.object()
-      expect(req.res.body).to.contain({
-        id: id,
-        user_id: firstUserId,
-        title: `Veja como utilizar o V8 da melhor maneira - Parte 1`,
-        thumbnail: 'https://google.com.br/logo',
-        link: 'https://google.com.br'
-      })
+      expect(req.res.body.id).to.equal(id)
     }))
 
     lab.test('não deve encontrar linhas', co.wrap(function * () {
@@ -166,7 +138,7 @@ lab.describe('shares', () => {
       yield fixtures.users.insertMultiple()
       yield fixtures.shares.insertMultipleWithId([id])
 
-      const req = yield request(server)
+      yield request(server)
       .set('Cookie', yield fixtures.sessions.cookie('alanhoff', '$2a$12$SQM/UfsYvHrQ0sWWMQHsfOSg6Hfd.fGFQrj8VymlZGzmtr78BIs6i'))
       yield fixtures.shares.insertMultipleWithId([id])
       yield fixtures.users.insertMultiple()
