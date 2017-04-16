@@ -1,0 +1,114 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.navbar-fixed-top {
+  background-color: #303030;
+  border-color: #303030;
+}
+
+.navbar-header img {
+  margin-top: 5px;
+  height: 35px;
+  width: auto;
+}
+.container .navbar-header{
+  margin-right: 15px;
+}
+.navbar ul {
+  padding-top: 20px;
+  margin: 0 auto;
+}
+.navbar ul li {
+  position: relative;
+  background: #303030;
+  display: block;
+  float: left;
+  font-size: 12px;
+  line-height: 12px;
+  padding-bottom: 20px;
+}
+.navbar ul li:first-child a {
+  border-left: none;
+}
+.navbar ul li.active a {
+  color: #80bd01;
+}
+.navbar ul li a {
+  padding: 0 12px;
+  font-weight: normal;
+  border-left: 1px solid rgba(109,109,109,.4);
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+span.score {
+  margin-top: 10px;
+  margin-right: 10px;
+  min-width: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+span.score a h4 span.glyphicon-chevron-up{
+  padding-left: 2px;
+}
+
+article a h3{
+  color: #303030;
+}
+
+a {
+  color: #80bd01;
+}
+
+a:visited {
+  color: #80bd01;
+}
+
+a:hover{
+  text-decoration: none;
+  color: rgba(139, 190, 0, 0.6)
+}
+
+.btn-node {
+  background-color: #80bd01;
+  color: #ffffff !important;
+  font-weight: bolder;
+}
+
+.form-control:focus{
+  border-color: #80bd01;
+  box-shadow:  0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(139, 190, 0, 0.6)
+}
+
+#post {
+  color: #80bd01;
+  font-weight: bolder;
+}
+
+.error {
+  color: #ff0000 !important;
+  font-weight: bolder;
+}
+
+.postInfo {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+#author {
+  font-weight: bolder;
+  color: #80bd01;
+}
+#date {
+  font-weight: bold;
+}
+
+article#description{
+  font-size: 1.5em;
+}

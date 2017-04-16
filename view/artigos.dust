@@ -1,0 +1,23 @@
+{>"layout/main"/}
+{<body}
+<div class="container">
+  {@news page=query.page}
+  <div class="row">
+    {#news}
+    <div class="col-lg-12">
+      <h3>{title}</h3>
+      <p>{description}</p>
+      <a href="{link}">{link}</a>
+    </div>
+    {/news}
+  </div>
+  <ul class="pagination">
+    <li><a href="/noticias?page=1">&laquo;</a></li>
+    {#pagination}
+    <li><a href="/noticias?page={.}">{.}</a></li>
+    {/pagination}
+    <li><a href="/noticias?page={pages}">&raquo;</a></li>
+  </ul>
+  {/news}
+</div>
+{/body}
