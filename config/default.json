@@ -1,0 +1,6 @@
+{
+  "port": 8080,
+  "log": true,
+  "mode": "development",
+  "mongodb": "mongodb://localhost:27017/nodebr_dev"
+}

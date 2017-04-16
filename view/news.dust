@@ -1,0 +1,76 @@
+{>"layout/main"/}
+{<body}
+<div class="container">
+  <header id="new_news" class="pull-right">
+    <a href="/noticias/novo" class="btn btn-node">Novo Post</a>
+  </header>
+  {@news page=query.page}
+  <div class="row">
+    {#news}
+    <div class="col-lg-12">
+      <span class="pull-left score">
+        <a class="karmaUp" onClick="scorePlus('{slug}')">
+          <h4>
+            <span class="glyphicon glyphicon-chevron-up"></span>
+          </h4>
+        </a>
+        <h4 id="{slug}">{karma}</h4>
+        <a class="karmaDown" onClick="scoreMinus('{slug}')">
+          <h4>
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </h4>
+        </a>
+      </span>
+      <article>
+        <a target="_blank" href="/noticia/{slug}"><h3>{title}</h3></a>
+        <p>{description}</p>
+        <a target="_blank" href="{link}">{link}</a>
+      </article>
+    </div>
+    {/news}
+  </div>
+  <ul class="pagination">
+    <li><a href="/noticias?page=1">&laquo;</a></li>
+    {#pagination}
+    <li><a href="/noticias?page={.}">{.}</a></li>
+    {/pagination}
+    <li><a href="/noticias?page={pages}">&raquo;</a></li>
+  </ul>
+  {/news}
+</div>
+{/body}
+
+{<footer}
+<script type="text/javascript">
+  $('a.karmaUp').click(function(event){
+    event.preventDefault();
+  });
+
+  function scorePlus(slug){
+    $.ajax({
+      type: 'PUT',
+      url: "/api/v1/news/"+slug+"/karma",
+      data: { karma: 1},
+      dataType: 'application/json',
+      complete: updateKarma
+    });
+  }
+
+  function scoreMinus(slug){
+    var ajax = $.ajax({
+      type: 'PUT',
+      url: "/api/v1/news/"+slug+"/karma",
+      data: { karma: -1},
+      dataType: 'application/json',
+      complete: updateKarma
+    });
+  }
+
+  function updateKarma(data){
+    var news = JSON.parse(data.responseText);
+    if(data.status == 200)
+      $('h4#'+news.slug).html(news.karma);
+  }
+
+</script>
+{/footer}
